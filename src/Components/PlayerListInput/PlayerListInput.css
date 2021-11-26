@@ -1,0 +1,33 @@
+.scoreboard_form {
+    background-color: #eeeeee;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    overflow: auto;
+    user-select: none;
+}
+
+.form_title {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 576px) {
+    .form_title {
+        font-size: 1.2rem;
+    }
+}
+
+.form_subtitle {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 576px) {
+    .form_subtitle {
+        font-size: 1.1rem;
+    }
+}
