@@ -1,57 +1,67 @@
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { Container, Form, Row, Col, Button, Stack } from "react-bootstrap";
 import React, { useState } from "react";
 import "./PlayerListInput.css";
 import InputPlayer from "./InputPlayer/InputPlayer";
 
-function InputForm() {
+function PlayerListInput(props) {
   const [validated, setValidated] = useState(false);
+  const [inning, setInning] = useState("9");
+
+  const handlePlayerList = () => {
+    const gameSetting = [];
+    gameSetting.push(inning);
+    props.setPlayerList(gameSetting);
+  };
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
+    if (form.checkValidity() === true) {
+      handlePlayerList();
+      props.setPlayerListSubmitted(true);
     }
-
     setValidated(true);
   };
 
   return (
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      <Row className="mb-3">
-        <Form.Group as={Col} xs="6" controlId="Inning select">
-          <Form.Label>比賽局數</Form.Label>
-          <Form.Select defaultValue={9} aria-label="Inning select">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-          </Form.Select>
-        </Form.Group>
-      </Row>
-      <hr />
-      <InputPlayer team="home" />
-      <hr />
-      <InputPlayer team="away" />
-      <Button type="submit">Submit form</Button>
-    </Form>
-  );
-}
-
-const PlayerListInput = () => {
-  return (
     <div className="scoreboard_form">
       <Container>
         <div className="form_title">比賽及選手資訊登錄</div>
-        <InputForm />
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Row className="mb-3">
+            <Form.Group as={Col} xs="6" controlId="Inning select">
+              <Form.Label>比賽局數</Form.Label>
+              <Form.Select
+                value={inning}
+                aria-label="Inning select"
+                onChange={(e) => setInning(e.target.value)}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+              </Form.Select>
+            </Form.Group>
+          </Row>
+          <hr />
+          <InputPlayer team="home" />
+          <hr />
+          <InputPlayer team="away" />
+          <Stack direction="horizontal">
+            <Button className="ms-auto mb-3" type="submit">
+              送出
+            </Button>
+          </Stack>
+        </Form>
       </Container>
     </div>
   );
-};
+}
 
 export default PlayerListInput;
