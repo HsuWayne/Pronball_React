@@ -9,8 +9,16 @@ function InputPlayer(props) {
       <div className="form_subtitle">
         {team === "home" ? "登錄主隊球員資訊" : "登錄客隊球員資訊"}
       </div>
-      <InputPitcher team={team} />
-      <InputBatter team={team} />
+      <InputPitcher
+        team={team}
+        setPitcherList={props.setPitcherList}
+        pitcherList={props.pitcherList}
+      />
+      <InputBatter
+        team={team}
+        setBatterList={props.setBatterList}
+        batterList={props.batterList}
+      />
     </>
   );
 }

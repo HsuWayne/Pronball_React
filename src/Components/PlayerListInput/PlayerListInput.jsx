@@ -2,14 +2,62 @@ import { Container, Form, Row, Col, Button, Stack } from "react-bootstrap";
 import React, { useState } from "react";
 import "./PlayerListInput.css";
 import InputPlayer from "./InputPlayer/InputPlayer";
+import Player from "../Player";
 
 function PlayerListInput(props) {
   const [validated, setValidated] = useState(false);
   const [inning, setInning] = useState("9");
+  const [homeBatterList, setHomeBatterList] = useState([
+    {
+      batterSerialNum: "",
+      batterName: "",
+    },
+  ]);
+  const [awayBatterList, setAwayBatterList] = useState([
+    {
+      batterSerialNum: "",
+      batterName: "",
+    },
+  ]);
+  const [homePitcherList, setHomePitcherList] = useState({
+    pitcherSerialNum: "",
+    pitcherName: "",
+  });
+  const [awayPitcherList, setAwayPitcherList] = useState({
+    pitcherSerialNum: "",
+    pitcherName: "",
+  });
 
   const handlePlayerList = () => {
     const gameSetting = [];
-    gameSetting.push(inning);
+    const homePitcher = [
+      new Player(homePitcherList.pitcherSerialNum, homePitcherList.pitcherName),
+    ];
+    const awayPitcher = [
+      new Player(awayPitcherList.pitcherSerialNum, awayPitcherList.pitcherName),
+    ];
+    const homeBatters = homeBatterList.map((batter) => {
+      return new Player(batter.batterSerialNum, batter.batterName);
+    });
+    const awayBatters = awayBatterList.map((batter) => {
+      return new Player(batter.batterSerialNum, batter.batterName);
+    });
+    gameSetting.push(
+      homePitcher[0].serialNum + "," + homePitcher[0].name + "/"
+    );
+    gameSetting.push(
+      awayPitcher[0].serialNum + "," + awayPitcher[0].name + "/"
+    );
+    gameSetting.push(
+      homeBatters.map((batter) => {
+        return batter.serialNum + "," + batter.name + "/";
+      })
+    );
+    gameSetting.push(
+      awayBatters.map((batter) => {
+        return batter.serialNum + "," + batter.name + "/";
+      })
+    );
     props.setPlayerList(gameSetting);
   };
 
@@ -50,9 +98,21 @@ function PlayerListInput(props) {
             </Form.Group>
           </Row>
           <hr />
-          <InputPlayer team="home" />
+          <InputPlayer
+            team="home"
+            pitcherList={homePitcherList}
+            batterList={homeBatterList}
+            setPitcherList={setHomePitcherList}
+            setBatterList={setHomeBatterList}
+          />
           <hr />
-          <InputPlayer team="away" />
+          <InputPlayer
+            team="away"
+            pitcherList={awayPitcherList}
+            batterList={awayBatterList}
+            setPitcherList={setAwayPitcherList}
+            setBatterList={setAwayBatterList}
+          />
           <Stack direction="horizontal">
             <Button className="ms-auto mb-3" type="submit">
               送出

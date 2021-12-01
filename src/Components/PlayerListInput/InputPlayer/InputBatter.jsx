@@ -2,51 +2,42 @@ import React, { useState, useEffect } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
 const InputBatters = (props) => {
-  let team = props.team;
+  let { team, batterList, setBatterList } = props;
 
   const [battersNum, setBattersNum] = useState("1");
-  const [batters, setBatters] = useState([
-    team,
-    {
-      batterSerialNum: "",
-      batterName: "",
-    },
-  ]);
 
   const handleBattersNum = (e) => {
     setBattersNum(e.target.value);
   };
 
   const handleBatterSerialNum = (e) => {
-    const newBatterSerialNum = batters.map((batter, index) => {
-      if (e.target.id === team + "BatterSerialNum" + index) {
+    const newBatterSerialNum = batterList.map((batter, index) => {
+      if (e.target.id === team + "BatterSerialNum" + (index + 1)) {
         return { ...batter, batterSerialNum: e.target.value };
       }
       return batter;
     });
-    setBatters(newBatterSerialNum);
+    setBatterList(newBatterSerialNum);
   };
 
   const handleBatterName = (e) => {
-    const newBatterName = batters.map((batter, index) => {
-      if (e.target.id === team + "BatterName" + index) {
+    const newBatterName = batterList.map((batter, index) => {
+      if (e.target.id === team + "BatterName" + (index + 1)) {
         return { ...batter, batterName: e.target.value };
       }
       return batter;
     });
-    setBatters(newBatterName);
+    setBatterList(newBatterName);
   };
 
   useEffect(() => {
-    setBatters(
-      [team].concat(
-        Array(parseInt(battersNum)).fill({
-          batterSerialNum: "",
-          batterName: "",
-        })
-      )
+    setBatterList(
+      Array(parseInt(battersNum)).fill({
+        batterSerialNum: "",
+        batterName: "",
+      })
     );
-  }, [team, battersNum]);
+  }, [setBatterList, battersNum]);
 
   const inputBattersNum = (
     <Row className="mb-3" key={team + "InputBattersNum"}>

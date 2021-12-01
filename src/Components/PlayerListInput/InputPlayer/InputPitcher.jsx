@@ -1,23 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
 const InputPitcher = (props) => {
-  let team = props.team;
-
-  const [pitcher, setPitcher] = useState({
-    team: team,
-    pitcherSerialNum: "",
-    pitcherName: "",
-  });
+  let { team, pitcherList, setPitcherList } = props;
 
   return (
     <Row className="mb-3">
       <Form.Group as={Col} xs="4" controlId={team + "PitcherSerialNum"}>
         <Form.Label>背號(0~99)</Form.Label>
         <Form.Control
-          value={pitcher.pitcherSerialNum}
+          value={pitcherList.pitcherSerialNum}
           onChange={(e) =>
-            setPitcher({ ...pitcher, pitcherSerialNum: e.target.value })
+            setPitcherList({ ...pitcherList, pitcherSerialNum: e.target.value })
           }
           type="number"
           min="0"
@@ -34,9 +28,9 @@ const InputPitcher = (props) => {
           {team === "home" ? "主隊先發投手姓名" : "客隊先發投手姓名"}
         </Form.Label>
         <Form.Control
-          value={pitcher.pitcherName}
+          value={pitcherList.pitcherName}
           onChange={(e) =>
-            setPitcher({ ...pitcher, pitcherName: e.target.value })
+            setPitcherList({ ...pitcherList, pitcherName: e.target.value })
           }
           type="text"
           required
