@@ -2,11 +2,10 @@ import { Container, Form, Row, Col, Button, Stack } from "react-bootstrap";
 import React, { useState } from "react";
 import "./PlayerListInput.css";
 import InputPlayer from "./InputPlayer/InputPlayer";
-import Player from "../Player";
+import Player from "./Player";
 
 function PlayerListInput(props) {
   const [validated, setValidated] = useState(false);
-  const [inning, setInning] = useState("9");
   const [homeBatterList, setHomeBatterList] = useState([
     {
       batterSerialNum: "",
@@ -29,36 +28,22 @@ function PlayerListInput(props) {
   });
 
   const handlePlayerList = () => {
-    const gameSetting = [];
-    const homePitcher = [
+    props.setHomePitcher([
       new Player(homePitcherList.pitcherSerialNum, homePitcherList.pitcherName),
-    ];
-    const awayPitcher = [
+    ]);
+    props.setAwayPitcher([
       new Player(awayPitcherList.pitcherSerialNum, awayPitcherList.pitcherName),
-    ];
-    const homeBatters = homeBatterList.map((batter) => {
-      return new Player(batter.batterSerialNum, batter.batterName);
-    });
-    const awayBatters = awayBatterList.map((batter) => {
-      return new Player(batter.batterSerialNum, batter.batterName);
-    });
-    gameSetting.push(
-      homePitcher[0].serialNum + "," + homePitcher[0].name + "/"
-    );
-    gameSetting.push(
-      awayPitcher[0].serialNum + "," + awayPitcher[0].name + "/"
-    );
-    gameSetting.push(
-      homeBatters.map((batter) => {
-        return batter.serialNum + "," + batter.name + "/";
+    ]);
+    props.setHomeBatters(
+      homeBatterList.map((batter) => {
+        return new Player(batter.batterSerialNum, batter.batterName);
       })
     );
-    gameSetting.push(
-      awayBatters.map((batter) => {
-        return batter.serialNum + "," + batter.name + "/";
+    props.setAwayBatters(
+      awayBatterList.map((batter) => {
+        return new Player(batter.batterSerialNum, batter.batterName);
       })
     );
-    props.setPlayerList(gameSetting);
   };
 
   const handleSubmit = (event) => {
@@ -81,9 +66,9 @@ function PlayerListInput(props) {
             <Form.Group as={Col} xs="6" controlId="Inning select">
               <Form.Label>比賽局數</Form.Label>
               <Form.Select
-                value={inning}
+                value={props.inning}
                 aria-label="Inning select"
-                onChange={(e) => setInning(e.target.value)}
+                onChange={(e) => props.setInning(e.target.value)}
               >
                 <option value="1">1</option>
                 <option value="2">2</option>
