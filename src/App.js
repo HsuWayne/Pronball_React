@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+import React from "react";
 import "./bootstrap.min.css";
 import "./App.css";
 import WebNavbar from "./Components/WebNavbar";
-import PlayerListInput from "./Components/PlayerListInput/PlayerListInput";
+// import PlayerListInput from "./Components/PlayerListInput/PlayerListInput";
 import Scoreboard from "./Components/Scoreboard/Scoreboard";
 
 function App() {
-  const [playerListSubmitted, setPlayerListSubmitted] = useState(false);
-  const [inning, setInning] = useState("9");
-  const [homePitcher, setHomePitcher] = useState([]);
-  const [homeBatters, setHomeBatters] = useState([]);
-  const [awayPitcher, setAwayPitcher] = useState([]);
-  const [awayBatters, setAwayBatters] = useState([]);
+  // const [playerListSubmitted, setPlayerListSubmitted] = useState(false);
+  // const [inning, setInning] = useState("9");
+  // const [homePitcher, setHomePitcher] = useState([]);
+  // const [homeBatters, setHomeBatters] = useState([]);
+  // const [awayPitcher, setAwayPitcher] = useState([]);
+  // const [awayBatters, setAwayBatters] = useState([]);
 
   return (
     <>
       <WebNavbar />
-      {!playerListSubmitted ? (
+      {/* {!playerListSubmitted ? (
         <PlayerListInput
           setPlayerListSubmitted={setPlayerListSubmitted}
           inning={inning}
@@ -34,7 +35,8 @@ function App() {
           awayPitcher={awayPitcher}
           awayBatters={awayBatters}
         />
-      )}
+      )} */}
+      <Scoreboard />
     </>
   );
 }

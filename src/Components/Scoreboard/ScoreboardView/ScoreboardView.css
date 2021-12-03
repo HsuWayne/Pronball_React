@@ -1,0 +1,326 @@
+.scoreboard {
+  width: 100%;
+  user-select: none;
+}
+
+/* ScoreboardNav */
+.bg-home {
+  background-color: #fdcf7a;
+}
+
+.bg-away {
+  background-color: #7acdfd;
+}
+
+.scoreboard_nav {
+  font-size: 0.9rem;
+  line-height: 5vh;
+  height: 5vh;
+}
+
+@media (min-width: 576px) {
+  .scoreboard_nav {
+    font-size: 1.1rem;
+  }
+}
+
+.scoreboard_nav .status {
+  font-size: 0.7rem;
+  overflow: auto;
+}
+
+@media (min-width: 576px) {
+  .scoreboard_nav .status {
+    font-size: 1rem;
+  }
+}
+
+/* ScoreboardGameInfo */
+.scoreboard_inningCount {
+  height: 5vh;
+  line-height: 5vh;
+  font-size: 1.1rem;
+}
+
+@media (min-width: 576px) {
+  .scoreboard_inningCount {
+    font-size: 1.3rem;
+  }
+}
+
+.scoreboard_outCount {
+  height: 5vh;
+  line-height: 5vh;
+  font-size: 0.8rem;
+}
+
+@media (min-width: 576px) {
+  .scoreboard_outCount {
+    font-size: 1rem;
+  }
+}
+
+.scoreboard_outOn {
+  height: 0.8rem;
+  width: 0.8rem;
+  border-radius: 50%;
+  background-color: #dc3545;
+}
+
+.scoreboard_ballCount {
+  height: 2.5vh;
+  line-height: 2.5vh;
+  font-size: 0.5rem;
+}
+
+.scoreboard_ballStrike,
+.scoreboard_ballBall {
+  height: 0.8rem;
+  width: 0.8rem;
+  border-radius: 50%;
+}
+
+.scoreboard_ballStrike {
+  border: 1px solid #dc3545;
+  background-color: #dc3545;
+}
+
+.scoreboard_ballBall {
+  border: 1px solid #198754;
+  background-color: #198754;
+}
+
+/* GamePlayArea */
+.scoreboard_elements {
+  border: 1px solid #000000;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+@media (min-width: 576px) {
+  .scoreboard_elements {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .scoreboard_elements {
+    font-size: 1rem;
+  }
+}
+
+.scoreboard_elements:hover,
+.scoreboard_elements:active {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+  border: 2px solid #000000;
+}
+
+.scoreboard_bat_area {
+  height: 7vh;
+  line-height: 7vh;
+}
+.scoreboard_bat_area_strike {
+  background-color: #dc3545;
+}
+
+.scoreboard_bat_area_ball {
+  background-color: #198754;
+}
+
+.scoreboard_foul_area {
+  height: 8vh;
+  line-height: 8vh;
+  background-color: #aaaaaa;
+}
+.scoreboard_ground_area {
+  height: 12vh;
+  background-color: #20c997;
+}
+.scoreboard_fly_area {
+  height: 12vh;
+  background-color: #0dcaf0;
+}
+
+.scoreboard_single_area {
+  height: 9vh;
+  line-height: 4.5vh;
+  background-color: #ffc107;
+}
+
+.scoreboard_double_area {
+  height: 9vh;
+  line-height: 9vh;
+  background-color: #fd7e14;
+}
+
+.scoreboard_triple_area {
+  height: 9vh;
+  line-height: 9vh;
+
+  background-color: #6f42c1;
+}
+
+.scoreboard_homerun_area {
+  height: 9vh;
+  line-height: 9vh;
+
+  background-color: #d63384;
+}
+
+.pitcher,
+.batter {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid #000000;
+  background-color: #eeeeee;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+}
+
+.pitcher {
+  left: 37.5vw;
+  top: calc(42vh + 62px);
+}
+
+.batter {
+  left: 50vw;
+  top: calc(25vh + 62px);
+}
+
+@media (min-width: 576px) {
+  .pitcher,
+  .batter {
+    height: 3rem;
+    width: 3rem;
+    font-size: 1rem;
+  }
+
+  .pitcher {
+    top: calc(42vh + 76px);
+    left: calc(50vw - 68px);
+  }
+
+  .batter {
+    top: calc(25vh + 80px);
+  }
+}
+
+@media (min-width: 768px) {
+  .pitcher {
+    left: calc(50vw - 90px);
+  }
+}
+
+@media (min-width: 992px) {
+  .pitcher {
+    left: calc(50vw - 120px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .pitcher,
+  .batter {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  .pitcher {
+    left: calc(50vw - 144px);
+  }
+}
+
+@media (min-width: 1400px) {
+  .pitcher {
+    left: calc(50vw - 165px);
+  }
+}
+
+.batter th,
+.batter td,
+.pitcher th,
+.pitcher td {
+  width: auto;
+  text-align: center;
+}
+
+/* TeamInfoArea */
+.scoreboard_court {
+  height: 16vh;
+  background-color: #666666;
+  border: 1px solid #000000;
+}
+
+.scoreboard_court .court {
+  height: 8vh;
+  width: 8vh;
+  background-color: #8b4604;
+  border: 1px solid #000000;
+  position: relative;
+  transform: rotate(45deg);
+}
+
+.scoreboard_court .court .base {
+  height: 1vh;
+  width: 1vh;
+  background-color: #ff0000;
+  border: 1px solid #000000;
+  position: absolute;
+}
+
+.scoreboard_court .court .base p {
+  color: #ffffff;
+  transform: rotate(-45deg);
+  font-size: 0.6rem;
+}
+
+@media (min-width: 576px) {
+  .scoreboard_court .court .base p {
+    font-size: 1rem;
+  }
+}
+
+.scoreboard_court .court .base_1 {
+  top: 0;
+  right: 0;
+}
+
+.scoreboard_court .court .base_2 {
+  top: 0;
+  left: 0;
+}
+
+.scoreboard_court .court .base_3 {
+  bottom: 0;
+  left: 0;
+}
+
+.scoreboard_court .court .base_4 {
+  bottom: 0;
+  right: 0;
+}
+
+.scoreboard_teamsInfo_pitcher {
+  height: 5vh;
+  border: 1px solid #000000;
+  line-height: 5vh;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.scoreboard_teamsInfo_batter {
+  height: 20vh;
+  line-height: 5vh;
+  border: 1px solid #000000;
+  font-size: 0.8rem;
+  text-align: center;
+  overflow: auto;
+}
+
+@media (min-width: 576px) {
+  .scoreboard_teamsInfo_pitcher,
+  .scoreboard_teamsInfo_batter {
+    font-size: 1rem;
+  }
+}
