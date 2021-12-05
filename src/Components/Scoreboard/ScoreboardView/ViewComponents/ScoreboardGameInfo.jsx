@@ -2,8 +2,34 @@ import { Row, Col, Stack } from "react-bootstrap";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
-export default function ScoreboardGameInfo() {
+function ScoreboardGameInfo() {
+  const ballsCount = useSelector((state) => state.ballsCount);
+  const strikeCount = [];
+  for (let i = 0; i < ballsCount.strike; i++) {
+    strikeCount.push(
+      <Col xs="3" key={"strike" + i}>
+        <div className="scoreboard_ballStrike"></div>
+      </Col>
+    );
+  }
+  const ballCount = [];
+  for (let i = 0; i < ballsCount.ball; i++) {
+    ballCount.push(
+      <Col xs="3" key={"ball" + i}>
+        <div className="scoreboard_ballBall"></div>
+      </Col>
+    );
+  }
+  const out = 2;
+  const outCount = [];
+  for (let i = 0; i < out; i++) {
+    outCount.push(<div className="scoreboard_outOn" key={"out" + i}></div>);
+  }
+  const inning = 2;
+  const topInning = true;
+
   return (
     <Row>
       {/* 局數顯示 */}
@@ -14,9 +40,12 @@ export default function ScoreboardGameInfo() {
         direction="horizontal"
         className="align-items-center justify-content-center scoreboard_inningCount"
       >
-        <div>1</div>
-        <FontAwesomeIcon icon={faCaretUp} />
-        <FontAwesomeIcon icon={faCaretDown} />
+        <div>{inning}</div>
+        {topInning ? (
+          <FontAwesomeIcon icon={faCaretUp} />
+        ) : (
+          <FontAwesomeIcon icon={faCaretDown} />
+        )}
       </Stack>
       {/* 出局數顯示 */}
       <Stack
@@ -24,11 +53,10 @@ export default function ScoreboardGameInfo() {
         xs="3"
         direction="horizontal"
         gap={2}
-        className="align-items-center justify-content-center scoreboard_outCount"
+        className="align-items-center justify-content-start scoreboard_outCount"
       >
         <div>OUT:</div>
-        <div className="scoreboard_outOn"></div>
-        <div className="scoreboard_outOn"></div>
+        {outCount}
       </Stack>
       {/* 好壞球顯示 */}
       <Col xs={{ span: 4, offset: 2 }}>
@@ -36,28 +64,17 @@ export default function ScoreboardGameInfo() {
           <Col xs="3" className="text-center">
             S:
           </Col>
-          <Col xs="3">
-            <div className="scoreboard_ballStrike"></div>
-          </Col>
-          <Col xs="3">
-            <div className="scoreboard_ballStrike"></div>
-          </Col>
+          {strikeCount}
         </Row>
         <Row className="align-items-center scoreboard_ballCount">
           <Col xs="3" className="text-center">
             B:
           </Col>
-          <Col xs="3">
-            <div className="scoreboard_ballBall"></div>
-          </Col>
-          <Col xs="3">
-            <div className="scoreboard_ballBall"></div>
-          </Col>
-          <Col xs="3">
-            <div className="scoreboard_ballBall"></div>
-          </Col>
+          {ballCount}
         </Row>
       </Col>
     </Row>
   );
 }
+
+export default ScoreboardGameInfo;

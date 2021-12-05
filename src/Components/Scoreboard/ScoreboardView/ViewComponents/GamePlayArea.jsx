@@ -1,22 +1,53 @@
 import { Row, Col, Stack } from "react-bootstrap";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { strikeBall, ballBall } from "../../../../store/slice/ballsCountSlice";
+import { useSelector } from "react-redux";
 
-export default function GamePlayArea() {
+function GamePlayArea() {
+  const dispatch = useDispatch();
+  const ballsCount = useSelector((state) => state.ballsCount);
+  const handleStrike = () => {
+    dispatch(strikeBall());
+  };
+  const handleBall = () => {
+    dispatch(ballBall());
+  };
+  const handleFoul = () => {
+    if (ballsCount.strike === 2) {
+      return;
+    }
+    dispatch(strikeBall());
+  };
   return (
     <Col xs="9">
       <Row className="scoreboard_bat_area">
-        <Col xs="4" className="scoreboard_bat_area_ball scoreboard_elements">
+        <Col
+          xs="4"
+          className="scoreboard_bat_area_ball scoreboard_elements"
+          onClick={handleBall}
+        >
           壞球
         </Col>
-        <Col xs="4" className="scoreboard_bat_area_strike scoreboard_elements">
+        <Col
+          xs="4"
+          className="scoreboard_bat_area_strike scoreboard_elements"
+          onClick={handleStrike}
+        >
           好球
         </Col>
-        <Col xs="4" className="scoreboard_bat_area_ball scoreboard_elements">
+        <Col
+          xs="4"
+          className="scoreboard_bat_area_ball scoreboard_elements"
+          onClick={handleBall}
+        >
           壞球
         </Col>
       </Row>
       <Row className="scoreboard_foul_area scoreboard_elements">
-        <Col xs="12">界外</Col>
+        <Col xs="12" onClick={handleFoul}>
+          界外
+        </Col>
       </Row>
       <Row>
         <Col xs="6" className="scoreboard_ground_area scoreboard_elements">
@@ -77,3 +108,5 @@ export default function GamePlayArea() {
     </Col>
   );
 }
+
+export default GamePlayArea;

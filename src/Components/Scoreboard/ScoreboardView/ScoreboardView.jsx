@@ -6,9 +6,7 @@ import ScoreboardGameInfo from "./ViewComponents/ScoreboardGameInfo";
 import GamePlayArea from "./ViewComponents/GamePlayArea";
 import TeamInfoArea from "./ViewComponents/TeamInfoArea";
 
-function ScoreboardView(props) {
-  const { inning, homePitcher, homeBatters, awayPitcher, awayBatters } = props;
-
+function ScoreboardView() {
   return (
     <div className="scoreboard">
       <Container>
@@ -16,12 +14,7 @@ function ScoreboardView(props) {
         <ScoreboardGameInfo />
         <Row>
           <GamePlayArea />
-          <TeamInfoArea
-            homePitcher={homePitcher}
-            homeBatters={homeBatters}
-            awayPitcher={awayPitcher}
-            awayBatters={awayBatters}
-          />
+          <TeamInfoArea />
         </Row>
       </Container>
     </div>

@@ -28,9 +28,10 @@ export default function TeamInfoArea(props) {
       <Row className="bg-home">
         <div className="scoreboard_teamsInfo_pitcher text-nowrap">
           {"(" +
-            playerList.homePitchers[0].serialNum +
+            playerList.homePitchers[playerList.homePitchers.length - 1]
+              .serialNum +
             ")" +
-            playerList.homePitchers[0].name}
+            playerList.homePitchers[playerList.homePitchers.length - 1].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
           {playerList.homeBatters.map((batter, index) => {
@@ -45,9 +46,10 @@ export default function TeamInfoArea(props) {
       <Row className="bg-away">
         <div className="scoreboard_teamsInfo_pitcher text-nowrap">
           {"(" +
-            playerList.awayPitchers[0].serialNum +
+            playerList.awayPitchers[playerList.awayPitchers.length - 1]
+              .serialNum +
             ")" +
-            playerList.awayPitchers[0].name}
+            playerList.awayPitchers[playerList.awayPitchers.length - 1].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
           {playerList.awayBatters.map((batter, index) => {
