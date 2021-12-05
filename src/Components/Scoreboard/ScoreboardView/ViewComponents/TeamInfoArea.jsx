@@ -1,8 +1,9 @@
 import { Row, Col, Stack } from "react-bootstrap";
 import React from "react";
+import { useSelector } from "react-redux";
 
 export default function TeamInfoArea(props) {
-  const { homePitcher, homeBatters, awayPitcher, awayBatters } = props;
+  const playerList = useSelector((state) => state.playerList);
 
   return (
     <Col xs="3">
@@ -26,10 +27,13 @@ export default function TeamInfoArea(props) {
       </Row>
       <Row className="bg-home">
         <div className="scoreboard_teamsInfo_pitcher text-nowrap">
-          {"(" + homePitcher[0].serialNum + ")" + homePitcher[0].name}
+          {"(" +
+            playerList.homePitchers[0].serialNum +
+            ")" +
+            playerList.homePitchers[0].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
-          {homeBatters.map((batter, index) => {
+          {playerList.homeBatters.map((batter, index) => {
             return (
               <div key={"homeBatter" + index}>
                 {"(" + batter.serialNum + ")" + batter.name}
@@ -40,10 +44,13 @@ export default function TeamInfoArea(props) {
       </Row>
       <Row className="bg-away">
         <div className="scoreboard_teamsInfo_pitcher text-nowrap">
-          {"(" + awayPitcher[0].serialNum + ")" + awayPitcher[0].name}
+          {"(" +
+            playerList.awayPitchers[0].serialNum +
+            ")" +
+            playerList.awayPitchers[0].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
-          {awayBatters.map((batter, index) => {
+          {playerList.awayBatters.map((batter, index) => {
             return (
               <div key={"awayBatter" + index}>
                 {"(" + batter.serialNum + ")" + batter.name}

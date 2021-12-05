@@ -2,7 +2,14 @@ import { Container, Form, Row, Col, Button, Stack } from "react-bootstrap";
 import React, { useState } from "react";
 import "./PlayerListInput.css";
 import InputPlayer from "./InputPlayer/InputPlayer";
-import Player from "./Player";
+import { defaultPitcher, defaultBatter } from "./Player";
+import { useDispatch } from "react-redux";
+import {
+  updateHomePitchers,
+  updateAwayPitchers,
+  updateHomeBatters,
+  updateAwayBatters,
+} from "../../store/slice/playerListSlice";
 
 function PlayerListInput(props) {
   const [validated, setValidated] = useState(false);
@@ -26,24 +33,39 @@ function PlayerListInput(props) {
     pitcherSerialNum: "",
     pitcherName: "",
   });
+  const dispatch = useDispatch();
 
   const handlePlayerList = () => {
-    props.setHomePitcher([
-      new Player(homePitcherList.pitcherSerialNum, homePitcherList.pitcherName),
-    ]);
-    props.setAwayPitcher([
-      new Player(awayPitcherList.pitcherSerialNum, awayPitcherList.pitcherName),
-    ]);
-    props.setHomeBatters(
-      homeBatterList.map((batter) => {
-        return new Player(batter.batterSerialNum, batter.batterName);
+    dispatch(
+      updateHomePitchers({
+        ...defaultPitcher,
+        serialNum: homePitcherList.pitcherSerialNum,
+        name: homePitcherList.pitcherName,
       })
     );
-    props.setAwayBatters(
-      awayBatterList.map((batter) => {
-        return new Player(batter.batterSerialNum, batter.batterName);
+    dispatch(
+      updateAwayPitchers({
+        ...defaultPitcher,
+        serialNum: awayPitcherList.pitcherSerialNum,
+        name: awayPitcherList.pitcherName,
       })
     );
+    const homeBatters = homeBatterList.map((batter) => {
+      return {
+        ...defaultBatter,
+        serialNum: batter.batterSerialNum,
+        name: batter.batterName,
+      };
+    });
+    dispatch(updateHomeBatters(homeBatters));
+    const awayBatters = awayBatterList.map((batter) => {
+      return {
+        ...defaultBatter,
+        serialNum: batter.batterSerialNum,
+        name: batter.batterName,
+      };
+    });
+    dispatch(updateAwayBatters(awayBatters));
   };
 
   const handleSubmit = (event) => {
