@@ -1,12 +1,23 @@
-// import { Container, Form, Row, Col, Button, Stack } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import React from "react";
-import ScoreboardView from "./ScoreboardView/ScoreboardView";
+import "./Scoreboard.css";
+import ScoreboardNav from "./ScoreboardComponents/ScoreboardNav";
+import ScoreboardGameInfo from "./ScoreboardComponents/ScoreboardGameInfo";
+import GamePlayArea from "./ScoreboardComponents/GamePlayArea";
+import TeamInfoArea from "./ScoreboardComponents/TeamInfoArea";
 
 function Scoreboard() {
   return (
-    <>
-      <ScoreboardView />
-    </>
+    <div className="scoreboard">
+      <Container>
+        <ScoreboardNav />
+        <ScoreboardGameInfo />
+        <Row>
+          <GamePlayArea />
+          <TeamInfoArea />
+        </Row>
+      </Container>
+    </div>
   );
 }
 

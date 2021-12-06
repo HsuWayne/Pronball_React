@@ -8,19 +8,14 @@ import Scoreboard from "./Components/Scoreboard/Scoreboard";
 
 function App() {
   // const [playerListSubmitted, setPlayerListSubmitted] = useState(false);
-  // const [inning, setInning] = useState("9");
 
   return (
     <>
       <WebNavbar />
       {/* {!playerListSubmitted ? (
-        <PlayerListInput
-          setPlayerListSubmitted={setPlayerListSubmitted}
-          inning={inning}
-          setInning={setInning}
-        />
+        <PlayerListInput setPlayerListSubmitted={setPlayerListSubmitted} />
       ) : (
-        <Scoreboard inning={inning} />
+        <Scoreboard />
       )} */}
       <Scoreboard />
     </>

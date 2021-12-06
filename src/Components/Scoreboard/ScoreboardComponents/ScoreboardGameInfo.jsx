@@ -5,9 +5,9 @@ import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
 function ScoreboardGameInfo() {
-  const ballsCount = useSelector((state) => state.ballsCount);
+  const gameData = useSelector((state) => state.gameData);
   const strikeCount = [];
-  for (let i = 0; i < ballsCount.strike; i++) {
+  for (let i = 0; i < gameData.strike; i++) {
     strikeCount.push(
       <Col xs="3" key={"strike" + i}>
         <div className="scoreboard_ballStrike"></div>
@@ -15,19 +15,17 @@ function ScoreboardGameInfo() {
     );
   }
   const ballCount = [];
-  for (let i = 0; i < ballsCount.ball; i++) {
+  for (let i = 0; i < gameData.ball; i++) {
     ballCount.push(
       <Col xs="3" key={"ball" + i}>
         <div className="scoreboard_ballBall"></div>
       </Col>
     );
   }
-  const out = 2;
   const outCount = [];
-  for (let i = 0; i < out; i++) {
+  for (let i = 0; i < gameData.out; i++) {
     outCount.push(<div className="scoreboard_outOn" key={"out" + i}></div>);
   }
-  const inning = 2;
   const topInning = true;
 
   return (
@@ -40,7 +38,7 @@ function ScoreboardGameInfo() {
         direction="horizontal"
         className="align-items-center justify-content-center scoreboard_inningCount"
       >
-        <div>{inning}</div>
+        <div>{gameData.gameInning}</div>
         {topInning ? (
           <FontAwesomeIcon icon={faCaretUp} />
         ) : (

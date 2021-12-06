@@ -5,11 +5,12 @@ import InputPlayer from "./InputPlayer/InputPlayer";
 import { defaultPitcher, defaultBatter } from "./Player";
 import { useDispatch } from "react-redux";
 import {
+  setGameInning,
   updateHomePitchers,
   updateAwayPitchers,
   updateHomeBatters,
   updateAwayBatters,
-} from "../../store/slice/playerListSlice";
+} from "../../store/slice/gameDataSlice";
 
 function PlayerListInput(props) {
   const [validated, setValidated] = useState(false);
@@ -88,9 +89,9 @@ function PlayerListInput(props) {
             <Form.Group as={Col} xs="6" controlId="Inning select">
               <Form.Label>比賽局數</Form.Label>
               <Form.Select
-                value={props.inning}
                 aria-label="Inning select"
-                onChange={(e) => props.setInning(e.target.value)}
+                defaultValue={9}
+                onChange={(e) => dispatch(setGameInning(e.target.value))}
               >
                 <option value="1">1</option>
                 <option value="2">2</option>

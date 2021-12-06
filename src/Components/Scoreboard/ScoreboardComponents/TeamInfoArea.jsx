@@ -2,8 +2,8 @@ import { Row, Col, Stack } from "react-bootstrap";
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function TeamInfoArea(props) {
-  const playerList = useSelector((state) => state.playerList);
+export default function TeamInfoArea() {
+  const gameData = useSelector((state) => state.gameData);
 
   return (
     <Col xs="3">
@@ -28,13 +28,12 @@ export default function TeamInfoArea(props) {
       <Row className="bg-home">
         <div className="scoreboard_teamsInfo_pitcher text-nowrap">
           {"(" +
-            playerList.homePitchers[playerList.homePitchers.length - 1]
-              .serialNum +
+            gameData.homePitchers[gameData.homePitchers.length - 1].serialNum +
             ")" +
-            playerList.homePitchers[playerList.homePitchers.length - 1].name}
+            gameData.homePitchers[gameData.homePitchers.length - 1].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
-          {playerList.homeBatters.map((batter, index) => {
+          {gameData.homeBatters.map((batter, index) => {
             return (
               <div key={"homeBatter" + index}>
                 {"(" + batter.serialNum + ")" + batter.name}
@@ -46,13 +45,12 @@ export default function TeamInfoArea(props) {
       <Row className="bg-away">
         <div className="scoreboard_teamsInfo_pitcher text-nowrap">
           {"(" +
-            playerList.awayPitchers[playerList.awayPitchers.length - 1]
-              .serialNum +
+            gameData.awayPitchers[gameData.awayPitchers.length - 1].serialNum +
             ")" +
-            playerList.awayPitchers[playerList.awayPitchers.length - 1].name}
+            gameData.awayPitchers[gameData.awayPitchers.length - 1].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
-          {playerList.awayBatters.map((batter, index) => {
+          {gameData.awayBatters.map((batter, index) => {
             return (
               <div key={"awayBatter" + index}>
                 {"(" + batter.serialNum + ")" + batter.name}
