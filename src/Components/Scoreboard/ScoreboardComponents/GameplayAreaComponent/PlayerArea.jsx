@@ -10,7 +10,7 @@ function PlayerArea() {
   return (
     <>
       <Stack className="pitcher scoreboard_elements align-items-center justify-content-center">
-        {gameData.pitching[gameData.pitching.length - 1].serialNum}
+        {gameData.pitching[0].serialNum}
       </Stack>
       <Stack className="batter scoreboard_elements align-items-center justify-content-center">
         {gameData.batting[0].serialNum}

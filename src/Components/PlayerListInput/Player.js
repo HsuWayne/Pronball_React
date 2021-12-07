@@ -23,6 +23,7 @@ export const defaultPitcher = {
 export const defaultBatter = {
   serialNum: "",
   name: "",
+  orderNumber: "",
   single: 0,
   double: 0,
   triple: 0,

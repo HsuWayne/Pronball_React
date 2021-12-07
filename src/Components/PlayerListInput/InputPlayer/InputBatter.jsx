@@ -13,7 +13,11 @@ const InputBatters = (props) => {
   const handleBatterSerialNum = (e) => {
     const newBatterSerialNum = batterList.map((batter, index) => {
       if (e.target.id === team + "BatterSerialNum" + (index + 1)) {
-        return { ...batter, batterSerialNum: e.target.value };
+        return {
+          ...batter,
+          batterSerialNum: e.target.value,
+          orderNumber: index + 1,
+        };
       }
       return batter;
     });
@@ -35,6 +39,7 @@ const InputBatters = (props) => {
       Array(parseInt(battersNum)).fill({
         batterSerialNum: "",
         batterName: "",
+        orderNumber: "",
       })
     );
   }, [setBatterList, battersNum]);

@@ -1,5 +1,7 @@
-import { Row, Col, Stack } from "react-bootstrap";
 import React from "react";
+import { Row, Col, Stack } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
 export default function TeamInfoArea() {
@@ -10,17 +12,15 @@ export default function TeamInfoArea() {
       <Row className="scoreboard_court">
         <Stack className="justify-content-center align-items-center">
           <div className="court">
-            <div className="base base_1">
-              <p>1</p>
-            </div>
-            <div className="base base_2">
-              <p>2</p>
-            </div>
-            <div className="base base_3">
-              <p>3</p>
-            </div>
+            {gameData.runnerBase.map((element, index) => {
+              return (
+                <div className={"base base_" + element} key={"base" + element}>
+                  <p>{gameData.runner[index][0].serialNum}</p>
+                </div>
+              );
+            })}
             <div className="base base_4">
-              <p>4</p>
+              <p>{gameData.batting[0].serialNum}</p>
             </div>
           </div>
         </Stack>
@@ -28,11 +28,15 @@ export default function TeamInfoArea() {
       <Row className="bg-home">
         <div className="scoreboard_teamsInfo_pitcher text-nowrap">
           {"(" +
-            gameData.homePitchers[gameData.homePitchers.length - 1].serialNum +
+            gameData.homePitchers[0].serialNum +
             ")" +
-            gameData.homePitchers[gameData.homePitchers.length - 1].name}
+            gameData.homePitchers[0].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
+          <div>
+            {"Next "}
+            <FontAwesomeIcon icon={faCaretDown} />
+          </div>
           {gameData.homeBatters.map((batter, index) => {
             return (
               <div key={"homeBatter" + index}>
@@ -45,11 +49,15 @@ export default function TeamInfoArea() {
       <Row className="bg-away">
         <div className="scoreboard_teamsInfo_pitcher text-nowrap">
           {"(" +
-            gameData.awayPitchers[gameData.awayPitchers.length - 1].serialNum +
+            gameData.awayPitchers[0].serialNum +
             ")" +
-            gameData.awayPitchers[gameData.awayPitchers.length - 1].name}
+            gameData.awayPitchers[0].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
+          <div>
+            {"Next "}
+            <FontAwesomeIcon icon={faCaretDown} />
+          </div>
           {gameData.awayBatters.map((batter, index) => {
             return (
               <div key={"awayBatter" + index}>

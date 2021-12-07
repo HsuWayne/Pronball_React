@@ -8,6 +8,8 @@ import {
   resetBallsCount,
   strikeout,
   walk,
+  halfInningHandle,
+  changeBatter,
 } from "../../../../store/slice/gameDataSlice";
 import { useSelector } from "react-redux";
 
@@ -31,15 +33,25 @@ function BallsCountArea() {
     if (gameData.strike === 3) {
       dispatch(strikeout());
       dispatch(resetBallsCount());
+      if (gameData.out < 2) {
+        dispatch(changeBatter());
+      }
     }
-  }, [dispatch, gameData.strike]);
+  }, [dispatch, gameData.strike, gameData.out]);
 
   useEffect(() => {
     if (gameData.ball === 4) {
       dispatch(walk());
       dispatch(resetBallsCount());
+      dispatch(changeBatter());
     }
   }, [dispatch, gameData.ball]);
+
+  useEffect(() => {
+    if (gameData.out === 3) {
+      dispatch(halfInningHandle());
+    }
+  }, [dispatch, gameData.out]);
 
   return (
     <>

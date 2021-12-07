@@ -10,22 +10,12 @@ import {
   updateAwayPitchers,
   updateHomeBatters,
   updateAwayBatters,
+  halfInningHandle,
 } from "../../store/slice/gameDataSlice";
 
 function PlayerListInput(props) {
   const [validated, setValidated] = useState(false);
-  const [homeBatterList, setHomeBatterList] = useState([
-    {
-      batterSerialNum: "",
-      batterName: "",
-    },
-  ]);
-  const [awayBatterList, setAwayBatterList] = useState([
-    {
-      batterSerialNum: "",
-      batterName: "",
-    },
-  ]);
+
   const [homePitcherList, setHomePitcherList] = useState({
     pitcherSerialNum: "",
     pitcherName: "",
@@ -34,6 +24,20 @@ function PlayerListInput(props) {
     pitcherSerialNum: "",
     pitcherName: "",
   });
+  const [homeBatterList, setHomeBatterList] = useState([
+    {
+      batterSerialNum: "",
+      batterName: "",
+      orderNumber: "",
+    },
+  ]);
+  const [awayBatterList, setAwayBatterList] = useState([
+    {
+      batterSerialNum: "",
+      batterName: "",
+      orderNumber: "",
+    },
+  ]);
   const dispatch = useDispatch();
 
   const handlePlayerList = () => {
@@ -56,6 +60,7 @@ function PlayerListInput(props) {
         ...defaultBatter,
         serialNum: batter.batterSerialNum,
         name: batter.batterName,
+        orderNumber: batter.orderNumber,
       };
     });
     dispatch(updateHomeBatters(homeBatters));
@@ -64,9 +69,11 @@ function PlayerListInput(props) {
         ...defaultBatter,
         serialNum: batter.batterSerialNum,
         name: batter.batterName,
+        orderNumber: batter.orderNumber,
       };
     });
     dispatch(updateAwayBatters(awayBatters));
+    dispatch(halfInningHandle());
   };
 
   const handleSubmit = (event) => {
