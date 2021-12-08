@@ -33,17 +33,27 @@ export default function TeamInfoArea() {
             gameData.homePitchers[0].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
-          <div>
-            {"Next "}
-            <FontAwesomeIcon icon={faCaretDown} />
-          </div>
-          {gameData.homeBatters.map((batter, index) => {
-            return (
-              <div key={"homeBatter" + index}>
-                {"(" + batter.serialNum + ")" + batter.name}
-              </div>
-            );
-          })}
+          {gameData.topInning
+            ? gameData.homeBatters.map((batter, index) => {
+                return (
+                  <div key={"homeBatter" + index}>
+                    {"(" + batter.serialNum + ")" + batter.name}
+                  </div>
+                );
+              })
+            : [
+                <div key="nextIcon">
+                  {"Next "}
+                  <FontAwesomeIcon icon={faCaretDown} />
+                </div>,
+                gameData.battingOrder.map((batter, index) => {
+                  return (
+                    <div key={"homeBatter" + index}>
+                      {"(" + batter.serialNum + ")" + batter.name}
+                    </div>
+                  );
+                }),
+              ]}
         </div>
       </Row>
       <Row className="bg-away">
@@ -54,17 +64,27 @@ export default function TeamInfoArea() {
             gameData.awayPitchers[0].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
-          <div>
-            {"Next "}
-            <FontAwesomeIcon icon={faCaretDown} />
-          </div>
-          {gameData.awayBatters.map((batter, index) => {
-            return (
-              <div key={"awayBatter" + index}>
-                {"(" + batter.serialNum + ")" + batter.name}
-              </div>
-            );
-          })}
+          {gameData.topInning
+            ? [
+                <div key="nextIcon">
+                  {"Next "}
+                  <FontAwesomeIcon icon={faCaretDown} />
+                </div>,
+                gameData.battingOrder.map((batter, index) => {
+                  return (
+                    <div key={"awayBatter" + index}>
+                      {"(" + batter.serialNum + ")" + batter.name}
+                    </div>
+                  );
+                }),
+              ]
+            : gameData.awayBatters.map((batter, index) => {
+                return (
+                  <div key={"awayBatter" + index}>
+                    {"(" + batter.serialNum + ")" + batter.name}
+                  </div>
+                );
+              })}
         </div>
       </Row>
     </Col>

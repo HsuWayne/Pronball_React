@@ -26,7 +26,6 @@ function ScoreboardGameInfo() {
   for (let i = 0; i < gameData.out; i++) {
     outCount.push(<div className="scoreboard_outOn" key={"out" + i}></div>);
   }
-  const topInning = true;
 
   return (
     <Row>
@@ -38,8 +37,8 @@ function ScoreboardGameInfo() {
         direction="horizontal"
         className="align-items-center justify-content-center scoreboard_inningCount"
       >
-        <div>{gameData.gameInning}</div>
-        {topInning ? (
+        <div>{gameData.currentInning}</div>
+        {gameData.topInning ? (
           <FontAwesomeIcon icon={faCaretUp} />
         ) : (
           <FontAwesomeIcon icon={faCaretDown} />

@@ -8,6 +8,13 @@ import {
   resetBallsCount,
   strikeout,
   walk,
+  updateScored,
+  updateRunner,
+  updateRunnerBase,
+  updatePitcherEr,
+  updatePitcherIra,
+  updateRunnerRuns,
+  updateBatterRbi,
   halfInningHandle,
   changeBatter,
 } from "../../../../store/slice/gameDataSlice";
@@ -30,6 +37,7 @@ function BallsCountArea() {
   };
 
   useEffect(() => {
+    //三振
     if (gameData.strike === 3) {
       dispatch(strikeout());
       dispatch(resetBallsCount());
@@ -40,14 +48,47 @@ function BallsCountArea() {
   }, [dispatch, gameData.strike, gameData.out]);
 
   useEffect(() => {
+    //四壞球時跑壘及得分判定
     if (gameData.ball === 4) {
       dispatch(walk());
       dispatch(resetBallsCount());
+      const runner = [...gameData.runner];
+      const runnerBase = [...gameData.runnerBase];
+      runner.push([gameData.batting[0], gameData.pitching[0]]);
+      runnerBase.push(0);
+      runnerBase.reverse();
+      for (let i = 0; i < runnerBase.length; i++) {
+        if (runnerBase[i] === i) {
+          runnerBase[i]++;
+        }
+      }
+      runnerBase.reverse();
+      if (runnerBase[0] === 4) {
+        dispatch(updatePitcherEr(runner[0][1].name));
+        if (runner[0][1].name !== gameData.pitching[0].name) {
+          dispatch(updatePitcherIra());
+        }
+        dispatch(updateRunnerRuns(runner[0][0].orderNumber));
+        dispatch(updateBatterRbi());
+        runnerBase.shift();
+        runner.shift();
+        dispatch(updateScored());
+      }
+      dispatch(updateRunner(runner));
+      dispatch(updateRunnerBase(runnerBase));
       dispatch(changeBatter());
     }
-  }, [dispatch, gameData.ball]);
+  }, [
+    dispatch,
+    gameData.ball,
+    gameData.runner,
+    gameData.runnerBase,
+    gameData.batting,
+    gameData.pitching,
+  ]);
 
   useEffect(() => {
+    //三出局
     if (gameData.out === 3) {
       dispatch(halfInningHandle());
     }
