@@ -27,10 +27,15 @@ export default function TeamInfoArea() {
       </Row>
       <Row className="bg-home">
         <div className="scoreboard_teamsInfo_pitcher text-nowrap">
-          {"(" +
-            gameData.homePitchers[0].serialNum +
-            ")" +
-            gameData.homePitchers[0].name}
+          {gameData.topInning
+            ? "(" +
+              gameData.pitching[0].serialNum +
+              ")" +
+              gameData.pitching[0].name
+            : "(" +
+              gameData.homePitchers[0].serialNum +
+              ")" +
+              gameData.homePitchers[0].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
           {gameData.topInning
@@ -58,10 +63,15 @@ export default function TeamInfoArea() {
       </Row>
       <Row className="bg-away">
         <div className="scoreboard_teamsInfo_pitcher text-nowrap">
-          {"(" +
-            gameData.awayPitchers[0].serialNum +
-            ")" +
-            gameData.awayPitchers[0].name}
+          {gameData.topInning
+            ? "(" +
+              gameData.awayPitchers[0].serialNum +
+              ")" +
+              gameData.awayPitchers[0].name
+            : "(" +
+              gameData.pitching[0].serialNum +
+              ")" +
+              gameData.pitching[0].name}
         </div>
         <div className="scoreboard_teamsInfo_batter text-nowrap">
           {gameData.topInning

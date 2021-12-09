@@ -13,14 +13,13 @@ export default function ScoreboardNav() {
         </Col>
         <Col xs="8" className="bg-secondary bg-opacity-50 status text-nowrap">
           {"投手：" +
-            gameData.pitching[gameData.pitching.length - 1].name +
+            gameData.pitching[0].name +
             " 球數：" +
-            (gameData.pitching[gameData.pitching.length - 1].strike +
-              gameData.pitching[gameData.pitching.length - 1].ball) +
+            (gameData.pitching[0].strike + gameData.pitching[0].ball) +
             " (好" +
-            gameData.pitching[gameData.pitching.length - 1].strike +
+            gameData.pitching[0].strike +
             "：壞" +
-            gameData.pitching[gameData.pitching.length - 1].ball +
+            gameData.pitching[0].ball +
             ")"}
         </Col>
       </Row>
