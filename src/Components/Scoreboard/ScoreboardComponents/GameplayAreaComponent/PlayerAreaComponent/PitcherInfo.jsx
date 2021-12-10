@@ -105,8 +105,13 @@ function PitcherInfo(props) {
       </Modal.Body>
       <hr />
       <Container fluid>
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-          <h6>更換投手</h6>
+        <Form
+          className="playerForm"
+          noValidate
+          validated={validated}
+          onSubmit={handleSubmit}
+        >
+          <div className="playerForm_subtitle">更換投手</div>
           <Row className="mb-3">
             <Form.Group as={Col} xs="4" controlId={"changePitcherSerialNum"}>
               <Form.Label>背號(0~99)</Form.Label>
