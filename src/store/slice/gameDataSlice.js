@@ -149,7 +149,28 @@ export const gameDataSlice = createSlice({
         (o) => o.orderNumber === state.batting[0].orderNumber
       ).dp++;
     },
-    flyOut: (state) => {},
+    flyOut: (state) => {
+      state.out++;
+      state.pitching[0].o++;
+      state.pitching[0].strike++;
+      state.pitching[0].aoPit++;
+      state.battingOrder.find(
+        (o) => o.orderNumber === state.batting[0].orderNumber
+      ).ao++;
+      if (state.out <= 2) {
+        state.batting = state.battingOrder.slice(0, 1);
+        state.battingOrder.push(state.battingOrder.shift());
+        state.charge = false;
+      }
+    },
+    sacrificeFly: (state) => {
+      state.out++;
+      state.pitching[0].o++;
+      state.pitching[0].strike++;
+      state.battingOrder.find(
+        (o) => o.orderNumber === state.batting[0].orderNumber
+      ).sf++;
+    },
     updateScored: (state) => {
       if (state.topInning) {
         state.awayPoint++;
@@ -247,6 +268,7 @@ export const {
   sacrificeHit,
   doublePlay,
   flyOut,
+  sacrificeFly,
   updateScored,
   updateRunner,
   updateRunnerBase,

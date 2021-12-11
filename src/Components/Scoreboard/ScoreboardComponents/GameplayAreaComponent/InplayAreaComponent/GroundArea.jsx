@@ -127,7 +127,7 @@ function GroundArea(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>請選擇滾地球種類</Modal.Title>
+        <Modal.Title>請選擇擊球結果</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Stack direction="horizontal" className="justify-content-evenly">

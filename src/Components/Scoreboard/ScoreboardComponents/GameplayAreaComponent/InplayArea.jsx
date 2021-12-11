@@ -16,13 +16,15 @@ import {
 } from "../../../../store/slice/gameDataSlice";
 import { useSelector } from "react-redux";
 import GroundArea from "./InplayAreaComponent/GroundArea";
+import FlyArea from "./InplayAreaComponent/FlyArea";
 
 function InplayArea() {
   const dispatch = useDispatch();
   const gameData = useSelector((state) => state.gameData);
   const [groundAreaShow, setGroundAreaShow] = useState(false);
   const [groundToRight, setGroundToRight] = useState(false);
-  // const [flyAreaShow, setFlyAreaShow] = useState(false);
+  const [flyAreaShow, setFlyAreaShow] = useState(false);
+  const [flyToRight, setFlyToRight] = useState(false);
 
   const handleHit = (base) => {
     dispatch(updateHit(base));
@@ -100,14 +102,28 @@ function InplayArea() {
         groundToRight={groundToRight}
       />
       <Row>
-        <Col xs="6" className="scoreboard_fly_area scoreboard_elements">
+        <Col
+          xs="6"
+          className="scoreboard_fly_area scoreboard_elements"
+          onClick={() => {
+            setFlyToRight(true);
+            setFlyAreaShow(true);
+          }}
+        >
           直接一壘安打區
           <br />
           強力飛球區
           <br />
           (二三壘跑者推進)
         </Col>
-        <Col xs="6" className="scoreboard_fly_area scoreboard_elements">
+        <Col
+          xs="6"
+          className="scoreboard_fly_area scoreboard_elements"
+          onClick={() => {
+            setFlyToRight(false);
+            setFlyAreaShow(true);
+          }}
+        >
           直接一壘安打區
           <br />
           強力飛球區
@@ -115,6 +131,12 @@ function InplayArea() {
           (三壘跑者推進)
         </Col>
       </Row>
+      <FlyArea
+        flyAreaShow={flyAreaShow}
+        setFlyAreaShow={setFlyAreaShow}
+        flyToRight={flyToRight}
+        handleHit={handleHit}
+      />
       <Row className="scoreboard_single_area scoreboard_elements">
         <Col xs="12" onClick={() => handleHit(1)}>
           一壘安打區
