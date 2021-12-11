@@ -23,6 +23,7 @@ export const gameDataSlice = createSlice({
     out: 0,
     runner: [], //跑者
     runnerBase: [], //跑者所在壘包
+    charge: false, //趨前守備
     // pitching: [], //目前投手
     // batting: [], //目前打者
     // battingOrder: [], //目前打序
@@ -118,7 +119,36 @@ export const gameDataSlice = createSlice({
         state.pitching[0].hr++;
       }
     },
-    groundOut: (state) => {},
+    groundOut: (state) => {
+      state.out++;
+      state.pitching[0].o++;
+      state.pitching[0].strike++;
+      state.pitching[0].goPit++;
+      state.battingOrder.find(
+        (o) => o.orderNumber === state.batting[0].orderNumber
+      ).go++;
+      if (state.out <= 2) {
+        state.batting = state.battingOrder.slice(0, 1);
+        state.battingOrder.push(state.battingOrder.shift());
+        state.charge = false;
+      }
+    },
+    sacrificeHit: (state) => {
+      state.out++;
+      state.pitching[0].o++;
+      state.pitching[0].strike++;
+      state.battingOrder.find(
+        (o) => o.orderNumber === state.batting[0].orderNumber
+      ).sh++;
+    },
+    doublePlay: (state) => {
+      state.out++;
+      state.pitching[0].o++;
+      state.pitching[0].dpPit++;
+      state.battingOrder.find(
+        (o) => o.orderNumber === state.batting[0].orderNumber
+      ).dp++;
+    },
     flyOut: (state) => {},
     updateScored: (state) => {
       if (state.topInning) {
@@ -149,17 +179,22 @@ export const gameDataSlice = createSlice({
         (o) => o.orderNumber === state.batting[0].orderNumber
       ).rbi++;
     },
+    setCharge: (state) => {
+      state.charge = !state.charge;
+    },
     changePitcher: (state, action) => {
       state.pitching.unshift(action.payload);
     },
     changeBatter: (state) => {
       state.batting = state.battingOrder.slice(0, 1);
       state.battingOrder.push(state.battingOrder.shift());
+      state.charge = false;
     },
     halfInningHandle: (state) => {
       state.out = 0;
       state.runner = [];
       state.runnerBase = [];
+      state.charge = false;
       if (state.topInning) {
         if (state.pitching) {
           state.homePitchers = state.pitching;
@@ -209,6 +244,8 @@ export const {
   walk,
   updateHit,
   groundOut,
+  sacrificeHit,
+  doublePlay,
   flyOut,
   updateScored,
   updateRunner,
@@ -217,6 +254,7 @@ export const {
   updatePitcherIra,
   updateRunnerRuns,
   updateBatterRbi,
+  setCharge,
   changePitcher,
   changeBatter,
   halfInningHandle,

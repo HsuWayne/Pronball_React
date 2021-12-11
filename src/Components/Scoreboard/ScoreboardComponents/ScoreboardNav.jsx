@@ -37,9 +37,7 @@ export default function ScoreboardNav() {
               gameData.batting[0].homerun +
               gameData.batting[0].so +
               gameData.batting[0].go +
-              gameData.batting[0].ao -
-              gameData.batting[0].sf -
-              gameData.batting[0].sh) +
+              gameData.batting[0].ao) +
             " ,H:" +
             (gameData.batting[0].single +
               gameData.batting[0].double +

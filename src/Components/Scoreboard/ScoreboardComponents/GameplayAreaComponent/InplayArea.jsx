@@ -1,9 +1,10 @@
 import { Row, Col } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   resetBallsCount,
   updateHit,
+  groundOut,
   updateScored,
   updateRunner,
   updateRunnerBase,
@@ -11,14 +12,17 @@ import {
   updatePitcherIra,
   updateRunnerRuns,
   updateBatterRbi,
-  // halfInningHandle,
   changeBatter,
 } from "../../../../store/slice/gameDataSlice";
 import { useSelector } from "react-redux";
+import GroundArea from "./InplayAreaComponent/GroundArea";
 
 function InplayArea() {
   const dispatch = useDispatch();
   const gameData = useSelector((state) => state.gameData);
+  const [groundAreaShow, setGroundAreaShow] = useState(false);
+  const [groundToRight, setGroundToRight] = useState(false);
+  // const [flyAreaShow, setFlyAreaShow] = useState(false);
 
   const handleHit = (base) => {
     dispatch(updateHit(base));
@@ -48,17 +52,41 @@ function InplayArea() {
     dispatch(updateRunnerBase(runnerBase));
     dispatch(changeBatter());
   };
+
+  const handleGroundOut = () => {
+    if (gameData.runner.length > 0 && gameData.out <= 1) {
+      setGroundAreaShow(true);
+    } else {
+      dispatch(resetBallsCount());
+      dispatch(groundOut());
+    }
+  };
+
   return (
     <>
       <Row>
-        <Col xs="6" className="scoreboard_ground_area scoreboard_elements">
+        <Col
+          xs="6"
+          className="scoreboard_ground_area scoreboard_elements"
+          onClick={() => {
+            setGroundToRight(true);
+            handleGroundOut();
+          }}
+        >
           滾地出局區
           <br />
           (一壘雙殺，二三壘推進)
           <br />
           犧牲觸擊成功區
         </Col>
-        <Col xs="6" className="scoreboard_ground_area scoreboard_elements">
+        <Col
+          xs="6"
+          className="scoreboard_ground_area scoreboard_elements"
+          onClick={() => {
+            setGroundToRight(false);
+            handleGroundOut();
+          }}
+        >
           滾地出局區
           <br />
           (一壘雙殺，二三壘不動)
@@ -66,6 +94,11 @@ function InplayArea() {
           犧牲觸擊失敗區
         </Col>
       </Row>
+      <GroundArea
+        groundAreaShow={groundAreaShow}
+        setGroundAreaShow={setGroundAreaShow}
+        groundToRight={groundToRight}
+      />
       <Row>
         <Col xs="6" className="scoreboard_fly_area scoreboard_elements">
           直接一壘安打區

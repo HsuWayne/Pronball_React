@@ -42,6 +42,6 @@ export const defaultBatter = {
 // 總安打數
 // single + double + triple + homerun;
 // 打數
-// h() + so + go + ao - sf - sh;
+// h() + so + go + ao;
 // 打席
-// ab() + bb + sf + sh;
+// ab() + bb;

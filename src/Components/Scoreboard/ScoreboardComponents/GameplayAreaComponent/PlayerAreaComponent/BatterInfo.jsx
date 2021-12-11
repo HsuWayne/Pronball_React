@@ -49,9 +49,7 @@ function BatterInfo(props) {
                       batter.homerun +
                       batter.so +
                       batter.go +
-                      batter.ao -
-                      batter.sf -
-                      batter.sh}
+                      batter.ao}
                   </td>
                   <td>{batter.runs}</td>
                   <td>

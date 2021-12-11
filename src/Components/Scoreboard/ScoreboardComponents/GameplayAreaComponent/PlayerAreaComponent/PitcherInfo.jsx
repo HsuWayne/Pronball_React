@@ -9,7 +9,10 @@ import {
 } from "react-bootstrap";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { changePitcher } from "../../../../../store/slice/gameDataSlice";
+import {
+  changePitcher,
+  setCharge,
+} from "../../../../../store/slice/gameDataSlice";
 import { useSelector } from "react-redux";
 import { defaultPitcher } from "../../../../PlayerListInput/Player";
 
@@ -99,9 +102,34 @@ function PitcherInfo(props) {
             })}
           </tbody>
         </Table>
-        <Button variant="outline-primary" disabled>
-          趨前守備
-        </Button>
+        {gameData.runner.length > 1 &&
+        gameData.runnerBase[gameData.runnerBase.length - 2] === 2 &&
+        gameData.out < 2 &&
+        !gameData.charge ? (
+          <Button
+            variant="outline-primary"
+            onClick={() => {
+              dispatch(setCharge());
+              setPitcherShow(false);
+            }}
+          >
+            趨前守備
+          </Button>
+        ) : gameData.charge ? (
+          <Button
+            variant="primary"
+            onClick={() => {
+              dispatch(setCharge());
+              setPitcherShow(false);
+            }}
+          >
+            趨前守備 已開啟
+          </Button>
+        ) : (
+          <Button variant="outline-primary" disabled>
+            趨前守備
+          </Button>
+        )}
       </Modal.Body>
       <hr />
       <Container fluid>
