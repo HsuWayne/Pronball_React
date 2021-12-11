@@ -10,10 +10,11 @@ import {
 export const gameDataSlice = createSlice({
   name: "gameData",
   initialState: {
-    gameInning: 9,
+    gameInning: 2,
     currentInning: 0,
     topInning: false,
     lastHalfCheck: false,
+    gameEnd: false,
     homePoint: 0,
     homePointList: [0, 0, 0, 0, 0, 0, 0, 0, 0],
     awayPoint: 0,
@@ -212,6 +213,22 @@ export const gameDataSlice = createSlice({
       state.charge = false;
     },
     halfInningHandle: (state) => {
+      if (state.lastHalfCheck) {
+        if (state.homePoint < state.awayPoint) {
+          state.gameEnd = true;
+        } else {
+          state.lastHalfCheck = false;
+          state.homePointList.push("0");
+          state.awayPointList.push("0");
+          state.gameInning++;
+        }
+      }
+      if (state.currentInning === state.gameInning && state.topInning) {
+        if (state.homePoint > state.awayPoint) {
+          state.homePointList[state.homePointList.length - 1] = "-";
+          state.gameEnd = true;
+        }
+      }
       state.out = 0;
       state.runner = [];
       state.runnerBase = [];
@@ -233,9 +250,14 @@ export const gameDataSlice = createSlice({
         state.battingOrder = state.awayBatters;
       }
       state.topInning = !state.topInning;
+      if (state.currentInning === state.gameInning && !state.topInning) {
+        state.lastHalfCheck = true;
+      }
       state.batting = state.battingOrder.slice(0, 1);
       state.battingOrder.push(state.battingOrder.shift());
-      console.log("halfInningHandle");
+    },
+    setGameEnd: (state) => {
+      state.gameEnd = true;
     },
     //測試用
     setTest: (state) => {
@@ -280,6 +302,7 @@ export const {
   changePitcher,
   changeBatter,
   halfInningHandle,
+  setGameEnd,
   setTest,
 } = gameDataSlice.actions;
 

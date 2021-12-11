@@ -6,7 +6,7 @@ import ScoreboardGameInfo from "./ScoreboardComponents/ScoreboardGameInfo";
 import GamePlayArea from "./ScoreboardComponents/GamePlayArea";
 import TeamInfoArea from "./ScoreboardComponents/TeamInfoArea";
 import { useDispatch } from "react-redux";
-import { setTest } from "../../store/slice/gameDataSlice";
+import { setTest, setGameEnd } from "../../store/slice/gameDataSlice";
 import { useSelector } from "react-redux";
 
 function Scoreboard() {
@@ -21,22 +21,33 @@ function Scoreboard() {
   useEffect(() => {
     if (gameData.lastHalfCheck) {
       if (gameData.homePoint > gameData.awayPoint) {
-        console.log("End!");
+        dispatch(setGameEnd());
       }
     }
-  }, [gameData.lastHalfCheck, gameData.homePoint, gameData.awayPoint]);
+  }, [
+    gameData.lastHalfCheck,
+    gameData.homePoint,
+    gameData.awayPoint,
+    dispatch,
+  ]);
 
   return (
-    <div className="scoreboard">
-      <Container>
-        <ScoreboardNav />
-        <ScoreboardGameInfo />
-        <Row>
-          <GamePlayArea />
-          <TeamInfoArea />
-        </Row>
-      </Container>
-    </div>
+    <>
+      {!gameData.gameEnd ? (
+        <div className="scoreboard">
+          <Container>
+            <ScoreboardNav />
+            <ScoreboardGameInfo />
+            <Row>
+              <GamePlayArea />
+              <TeamInfoArea />
+            </Row>
+          </Container>
+        </div>
+      ) : (
+        <div>End</div>
+      )}
+    </>
   );
 }
 
