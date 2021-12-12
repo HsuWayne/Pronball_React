@@ -5,11 +5,21 @@
 
 /* ScoreboardNav */
 .bg-home {
-  background-color: #fdcf7a;
+  background-color: #f8e17c;
+}
+
+.bg-home-2nd {
+  background-color: #f7ebb8;
+
 }
 
 .bg-away {
-  background-color: #7acdfd;
+  background-color: #8ad0f8;
+}
+
+.bg-away-2nd {
+  background-color: #b5e2fc;
+
 }
 
 .scoreboard_nav {
@@ -339,4 +349,32 @@
   .scoreboard_teamsInfo_batter {
     font-size: 1rem;
   }
+}
+
+/* scoreboard result */
+.gameResult {
+  background-color: #eeeeee;
+  user-select: none;
+}
+
+.scoreboard_result {
+  overflow: auto;
+}
+
+.result_title {
+  font-size: 0.9rem
+}
+
+@media (min-width: 576px) {
+
+  .result_title {
+    font-size: 1rem
+  }
+}
+
+.scoreboard_result th,
+.scoreboard_result td {
+  width: auto;
+  text-align: center;
+  font-size: 0.8rem;
 }

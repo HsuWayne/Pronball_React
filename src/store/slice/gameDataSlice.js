@@ -1,18 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//測試用參數
-import {
-  defaultPitcher,
-  defaultBatter,
-} from "../../Components/PlayerListInput/Player";
-//測試用參數
-
 export const gameDataSlice = createSlice({
   name: "gameData",
   initialState: {
-    gameInning: 2,
+    gameInning: 9,
     currentInning: 0,
-    topInning: false,
+    topInning: true,
     lastHalfCheck: false,
     gameEnd: false,
     homePoint: 0,
@@ -25,37 +18,34 @@ export const gameDataSlice = createSlice({
     runner: [], //跑者
     runnerBase: [], //跑者所在壘包
     charge: false, //趨前守備
-    // pitching: [], //目前投手
-    // batting: [], //目前打者
-    // battingOrder: [], //目前打序
-    // homePitchers: [],
-    // awayPitchers: [],
-    // homeBatters: [],
-    // awayBatters: [],
+    pitching: [], //目前投手
+    batting: [], //目前打者
+    battingOrder: [], //目前打序
+    homePitchers: [],
+    awayPitchers: [],
+    homeBatters: [],
+    awayBatters: [],
 
     //測試用參數
-    pitching: [{ ...defaultPitcher }],
-    batting: [{ ...defaultBatter }],
-    battingOrder: [{ ...defaultBatter }],
-    homePitchers: [{ ...defaultPitcher, serialNum: "04", name: "趙小四" }],
-    awayPitchers: [{ ...defaultPitcher, serialNum: "24", name: "周大四" }],
-    homeBatters: [
-      { ...defaultBatter, orderNumber: "1", serialNum: "01", name: "錢小一" },
-      { ...defaultBatter, orderNumber: "2", serialNum: "02", name: "孫小二" },
-      { ...defaultBatter, orderNumber: "3", serialNum: "03", name: "李小三" },
-    ],
-    awayBatters: [
-      { ...defaultBatter, orderNumber: "1", serialNum: "21", name: "吳大一" },
-      { ...defaultBatter, orderNumber: "2", serialNum: "22", name: "鄭大二" },
-      { ...defaultBatter, orderNumber: "3", serialNum: "23", name: "王大三" },
-    ],
+    // homePitchers: [{ ...defaultPitcher, serialNum: "04", name: "趙小四" }],
+    // awayPitchers: [{ ...defaultPitcher, serialNum: "24", name: "周大四" }],
+    // homeBatters: [
+    //   { ...defaultBatter, orderNumber: "1", serialNum: "01", name: "錢小一" },
+    //   { ...defaultBatter, orderNumber: "2", serialNum: "02", name: "孫小二" },
+    //   { ...defaultBatter, orderNumber: "3", serialNum: "03", name: "李小三" },
+    // ],
+    // awayBatters: [
+    //   { ...defaultBatter, orderNumber: "1", serialNum: "21", name: "吳大一" },
+    //   { ...defaultBatter, orderNumber: "2", serialNum: "22", name: "鄭大二" },
+    //   { ...defaultBatter, orderNumber: "3", serialNum: "23", name: "王大三" },
+    // ],
     //測試用參數
   },
   reducers: {
     setGameInning: (state, action) => {
-      state.gameInning = action.payload;
-      state.homePointList = Array(action.payload).fill(0);
-      state.awayPointList = Array(action.payload).fill(0);
+      state.gameInning = parseInt(action.payload);
+      state.homePointList = Array(state.gameInning).fill(0);
+      state.awayPointList = Array(state.gameInning).fill(0);
     },
     updateHomePitchers: (state, action) => {
       state.homePitchers.unshift(action.payload);
@@ -215,6 +205,8 @@ export const gameDataSlice = createSlice({
     halfInningHandle: (state) => {
       if (state.lastHalfCheck) {
         if (state.homePoint < state.awayPoint) {
+          state.awayPitchers = state.pitching;
+          state.homeBatters = state.battingOrder;
           state.gameEnd = true;
         } else {
           state.lastHalfCheck = false;
@@ -226,6 +218,8 @@ export const gameDataSlice = createSlice({
       if (state.currentInning === state.gameInning && state.topInning) {
         if (state.homePoint > state.awayPoint) {
           state.homePointList[state.homePointList.length - 1] = "-";
+          state.homePitchers = state.pitching;
+          state.awayBatters = state.battingOrder;
           state.gameEnd = true;
         }
       }
@@ -234,18 +228,14 @@ export const gameDataSlice = createSlice({
       state.runnerBase = [];
       state.charge = false;
       if (state.topInning) {
-        if (state.pitching) {
-          state.homePitchers = state.pitching;
-          state.awayBatters = state.battingOrder;
-        }
+        state.homePitchers = state.pitching;
+        state.awayBatters = state.battingOrder;
         state.pitching = state.awayPitchers;
         state.battingOrder = state.homeBatters;
       } else {
         state.currentInning++;
-        if (state.pitching) {
-          state.awayPitchers = state.pitching;
-          state.homeBatters = state.battingOrder;
-        }
+        state.awayPitchers = state.pitching;
+        state.homeBatters = state.battingOrder;
         state.pitching = state.homePitchers;
         state.battingOrder = state.awayBatters;
       }
@@ -257,16 +247,16 @@ export const gameDataSlice = createSlice({
       state.battingOrder.push(state.battingOrder.shift());
     },
     setGameEnd: (state) => {
+      state.awayPitchers = state.pitching;
+      state.homeBatters = state.battingOrder;
       state.gameEnd = true;
     },
-    //測試用
-    setTest: (state) => {
+    setGameStart: (state) => {
       state.currentInning++;
       state.pitching = state.homePitchers;
       state.battingOrder = state.awayBatters;
       state.pointing = state.awayPoint;
       state.pointingList = state.awayPointList;
-      state.topInning = !state.topInning;
       state.batting = state.battingOrder.slice(0, 1);
       state.battingOrder.push(state.battingOrder.shift());
     },
@@ -303,7 +293,7 @@ export const {
   changeBatter,
   halfInningHandle,
   setGameEnd,
-  setTest,
+  setGameStart,
 } = gameDataSlice.actions;
 
 export default gameDataSlice.reducer;

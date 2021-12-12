@@ -10,7 +10,7 @@ import {
   updateAwayPitchers,
   updateHomeBatters,
   updateAwayBatters,
-  halfInningHandle,
+  setGameStart,
 } from "../../store/slice/gameDataSlice";
 
 function PlayerListInput(props) {
@@ -73,7 +73,7 @@ function PlayerListInput(props) {
       };
     });
     dispatch(updateAwayBatters(awayBatters));
-    dispatch(halfInningHandle());
+    dispatch(setGameStart());
   };
 
   const handleSubmit = (event) => {
