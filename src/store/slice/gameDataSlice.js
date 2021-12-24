@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const gameDataSlice = createSlice({
   name: "gameData",
   initialState: {
-    gameInning: 9,
+    gameInning: 9, //總局數
     currentInning: 0,
     topInning: true,
     lastHalfCheck: false,
@@ -25,22 +25,8 @@ export const gameDataSlice = createSlice({
     awayPitchers: [],
     homeBatters: [],
     awayBatters: [],
-
-    //測試用參數
-    // homePitchers: [{ ...defaultPitcher, serialNum: "04", name: "趙小四" }],
-    // awayPitchers: [{ ...defaultPitcher, serialNum: "24", name: "周大四" }],
-    // homeBatters: [
-    //   { ...defaultBatter, orderNumber: "1", serialNum: "01", name: "錢小一" },
-    //   { ...defaultBatter, orderNumber: "2", serialNum: "02", name: "孫小二" },
-    //   { ...defaultBatter, orderNumber: "3", serialNum: "03", name: "李小三" },
-    // ],
-    // awayBatters: [
-    //   { ...defaultBatter, orderNumber: "1", serialNum: "21", name: "吳大一" },
-    //   { ...defaultBatter, orderNumber: "2", serialNum: "22", name: "鄭大二" },
-    //   { ...defaultBatter, orderNumber: "3", serialNum: "23", name: "王大三" },
-    // ],
-    //測試用參數
   },
+
   reducers: {
     setGameInning: (state, action) => {
       state.gameInning = parseInt(action.payload);

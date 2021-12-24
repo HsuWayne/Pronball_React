@@ -1,5 +1,5 @@
 import { Container, Form, Row, Col, Button, Stack } from "react-bootstrap";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PlayerListInput.css";
 import InputPlayer from "./InputPlayer/InputPlayer";
 import { defaultPitcher, defaultBatter } from "./Player";
@@ -12,6 +12,25 @@ import {
   updateAwayBatters,
   setGameStart,
 } from "../../store/slice/gameDataSlice";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import FirebasePlayerList from "./InputPlayer/FirebasePlayerList";
+import RegisterPlayer from "./InputPlayer/RegisterPlayer";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCh6fWlLO_5BBg6KYIhOpQm-NYYxGThxT8",
+  authDomain: "pronball-51cf0.firebaseapp.com",
+  projectId: "pronball-51cf0",
+  storageBucket: "pronball-51cf0.appspot.com",
+  messagingSenderId: "962660474419",
+  appId: "1:962660474419:web:9c454bcaf770cabca0cd46",
+  measurementId: "G-DRK81DGZ5G",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const players = collection(db, "Players");
 
 function PlayerListInput(props) {
   const [validated, setValidated] = useState(false);
@@ -39,6 +58,24 @@ function PlayerListInput(props) {
     },
   ]);
   const dispatch = useDispatch();
+
+  const [firebasePlayerList, setFirebasePlayerList] = useState([]);
+  const [firebasePlayerListShow, setFirebasePlayerListShow] = useState(false);
+  const [registerPlayerShow, setRegisterPlayerShow] = useState(false);
+
+  async function getFirebasePlayer() {
+    const playerList = [];
+    const queryPlayer = await getDocs(query(players, orderBy("serialNumber")));
+    queryPlayer.forEach((player) => {
+      playerList.push({
+        name: player.id,
+        serialNum: player.data().serialNumber,
+      });
+    });
+    setFirebasePlayerList(playerList);
+  }
+
+  useEffect(() => getFirebasePlayer(), []);
 
   const handlePlayerList = () => {
     dispatch(
@@ -73,6 +110,33 @@ function PlayerListInput(props) {
       };
     });
     dispatch(updateAwayBatters(awayBatters));
+    dispatch(setGameStart());
+  };
+
+  const handleTestData = () => {
+    dispatch(setGameInning(3));
+    dispatch(
+      updateHomePitchers({ ...defaultPitcher, serialNum: "04", name: "趙主投" })
+    );
+    dispatch(
+      updateAwayPitchers({ ...defaultPitcher, serialNum: "24", name: "周客投" })
+    );
+
+    dispatch(
+      updateHomeBatters([
+        { ...defaultBatter, orderNumber: "1", serialNum: "01", name: "錢主一" },
+        { ...defaultBatter, orderNumber: "2", serialNum: "02", name: "孫主二" },
+        { ...defaultBatter, orderNumber: "3", serialNum: "03", name: "李主三" },
+      ])
+    );
+
+    dispatch(
+      updateAwayBatters([
+        { ...defaultBatter, orderNumber: "1", serialNum: "21", name: "吳客一" },
+        { ...defaultBatter, orderNumber: "2", serialNum: "22", name: "鄭客二" },
+        { ...defaultBatter, orderNumber: "3", serialNum: "23", name: "王客三" },
+      ])
+    );
     dispatch(setGameStart());
   };
 
@@ -111,6 +175,46 @@ function PlayerListInput(props) {
                 <option value="9">9</option>
               </Form.Select>
             </Form.Group>
+            <Row as={Col} xs={6}>
+              <Col xs={12} md={6} lg={{ span: 5, offset: 1 }} className="mb-3">
+                <Button
+                  variant="outline-primary"
+                  onClick={() => setFirebasePlayerListShow(true)}
+                >
+                  已註冊球員名單
+                </Button>
+                <FirebasePlayerList
+                  firebasePlayerList={firebasePlayerList}
+                  firebasePlayerListShow={firebasePlayerListShow}
+                  setFirebasePlayerListShow={setFirebasePlayerListShow}
+                />
+              </Col>
+              <Col xs={12} md={6} lg={{ span: 5, offset: 1 }} className="mb-3">
+                <Button
+                  variant="outline-success"
+                  onClick={() => setRegisterPlayerShow(true)}
+                >
+                  註冊新球員
+                </Button>
+                <RegisterPlayer
+                  getFirebasePlayer={getFirebasePlayer}
+                  firebasePlayerList={firebasePlayerList}
+                  registerPlayerShow={registerPlayerShow}
+                  setRegisterPlayerShow={setRegisterPlayerShow}
+                />
+              </Col>
+              <Col xs={12} md={{ span: 6, offset: 3 }} className="mb-3">
+                <Button
+                  variant="outline-dark"
+                  onClick={() => {
+                    handleTestData();
+                    props.setPlayerListSubmitted(true);
+                  }}
+                >
+                  帶入測試用資料
+                </Button>
+              </Col>
+            </Row>
           </Row>
           <hr />
           <InputPlayer
