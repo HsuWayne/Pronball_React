@@ -14,12 +14,12 @@ const InputPitcherFromDB = (props) => {
   }, [setPitcherList, gameData.playerListFromDB]);
 
   const handlePitcherInput = (e) => {
-    const pitcherIndex = gameData.playerListFromDB.findIndex(
+    const pitcher = gameData.playerListFromDB.find(
       (player) => player.name === e.target.value
     );
     setPitcherList({
-      pitcherSerialNum: gameData.playerListFromDB[pitcherIndex].serialNum,
-      pitcherName: gameData.playerListFromDB[pitcherIndex].name,
+      pitcherSerialNum: pitcher.serialNum,
+      pitcherName: pitcher.name,
     });
   };
 
@@ -32,7 +32,7 @@ const InputPitcherFromDB = (props) => {
         <Form.Select
           as={Col}
           xs="5"
-          aria-label="Default select example"
+          aria-label="Pitcher player select list"
           required
           onChange={handlePitcherInput}
         >

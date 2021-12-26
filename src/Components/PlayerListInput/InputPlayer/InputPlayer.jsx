@@ -2,6 +2,7 @@ import React from "react";
 import InputPitcher from "./InputPitcher";
 import InputPitcherFromDB from "./InputPitcherFromDB";
 import InputBatter from "./InputBatter";
+import InputBatterFromDB from "./InputBatterFromDB";
 import { useSelector } from "react-redux";
 
 function InputPlayer(props) {
@@ -40,7 +41,7 @@ function InputPlayer(props) {
             setPitcherList={setPitcherList}
             pitcherList={pitcherList}
           />
-          <InputBatter
+          <InputBatterFromDB
             team={team}
             setBatterList={setBatterList}
             batterList={batterList}
