@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Modal,
   Button,
@@ -7,10 +8,10 @@ import {
   Form,
   Alert,
 } from "react-bootstrap";
-import React, { useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, doc, setDoc } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCh6fWlLO_5BBg6KYIhOpQm-NYYxGThxT8",
@@ -29,10 +30,10 @@ const players = collection(db, "Players");
 function RegisterPlayer(props) {
   const {
     getFirebasePlayer,
-    firebasePlayerList,
     registerPlayerShow,
     setRegisterPlayerShow,
   } = props;
+  const gameData = useSelector((state) => state.gameData);
   const [validated, setValidated] = useState(false);
   const [newPlayer, setNewPlayer] = useState({
     serialNum: "",
@@ -98,7 +99,7 @@ function RegisterPlayer(props) {
 
   const handleRegister = (name, serialNum) => {
     let checkPlayerName = true;
-    for (let player of firebasePlayerList) {
+    for (let player of gameData.playerListFromDB) {
       if (player.name === name) {
         checkPlayerName = false;
         setRegisterFail(true);

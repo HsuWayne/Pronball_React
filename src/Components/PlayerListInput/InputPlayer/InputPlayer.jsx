@@ -1,24 +1,52 @@
 import React from "react";
 import InputPitcher from "./InputPitcher";
+import InputPitcherFromDB from "./InputPitcherFromDB";
 import InputBatter from "./InputBatter";
+import { useSelector } from "react-redux";
 
 function InputPlayer(props) {
-  let team = props.team;
+  const {
+    team,
+    pitcherList,
+    batterList,
+    setPitcherList,
+    setBatterList,
+  } = props;
+
+  const gameData = useSelector((state) => state.gameData);
+
   return (
     <>
       <div className="form_subtitle">
         {team === "home" ? "登錄主隊球員資訊" : "登錄客隊球員資訊"}
       </div>
-      <InputPitcher
-        team={team}
-        setPitcherList={props.setPitcherList}
-        pitcherList={props.pitcherList}
-      />
-      <InputBatter
-        team={team}
-        setBatterList={props.setBatterList}
-        batterList={props.batterList}
-      />
+      {gameData.playerListFromDB.length === 0 ? (
+        <>
+          <InputPitcher
+            team={team}
+            setPitcherList={setPitcherList}
+            pitcherList={pitcherList}
+          />
+          <InputBatter
+            team={team}
+            setBatterList={setBatterList}
+            batterList={batterList}
+          />
+        </>
+      ) : (
+        <>
+          <InputPitcherFromDB
+            team={team}
+            setPitcherList={setPitcherList}
+            pitcherList={pitcherList}
+          />
+          <InputBatter
+            team={team}
+            setBatterList={setBatterList}
+            batterList={batterList}
+          />
+        </>
+      )}
     </>
   );
 }

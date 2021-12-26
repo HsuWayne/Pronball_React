@@ -25,6 +25,9 @@ export const gameDataSlice = createSlice({
     awayPitchers: [],
     homeBatters: [],
     awayBatters: [],
+    playerListFromDB: [],
+    homePlayerListFilter: [],
+    awayPlayerListFilter: [],
   },
 
   reducers: {
@@ -246,6 +249,10 @@ export const gameDataSlice = createSlice({
       state.batting = state.battingOrder.slice(0, 1);
       state.battingOrder.push(state.battingOrder.shift());
     },
+    //Firebase資料處理
+    updatePlayerListFromDB: (state, action) => {
+      state.playerListFromDB = action.payload;
+    },
   },
 });
 
@@ -280,6 +287,7 @@ export const {
   halfInningHandle,
   setGameEnd,
   setGameStart,
+  updatePlayerListFromDB,
 } = gameDataSlice.actions;
 
 export default gameDataSlice.reducer;

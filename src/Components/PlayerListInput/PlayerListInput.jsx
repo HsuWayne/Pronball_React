@@ -1,5 +1,5 @@
 import { Container, Form, Row, Col, Button, Stack } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./PlayerListInput.css";
 import InputPlayer from "./InputPlayer/InputPlayer";
 import { defaultPitcher, defaultBatter } from "./Player";
@@ -11,11 +11,12 @@ import {
   updateHomeBatters,
   updateAwayBatters,
   setGameStart,
+  updatePlayerListFromDB,
 } from "../../store/slice/gameDataSlice";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import FirebasePlayerList from "./InputPlayer/FirebasePlayerList";
+import PlayerListFromDB from "./InputPlayer/PlayerListFromDB";
 import RegisterPlayer from "./InputPlayer/RegisterPlayer";
 
 const firebaseConfig = {
@@ -59,23 +60,27 @@ function PlayerListInput(props) {
   ]);
   const dispatch = useDispatch();
 
-  const [firebasePlayerList, setFirebasePlayerList] = useState([]);
-  const [firebasePlayerListShow, setFirebasePlayerListShow] = useState(false);
+  const [playerListFromDBShow, setPlayerListFromDBShow] = useState(false);
   const [registerPlayerShow, setRegisterPlayerShow] = useState(false);
 
-  async function getFirebasePlayer() {
-    const playerList = [];
-    const queryPlayer = await getDocs(query(players, orderBy("serialNumber")));
-    queryPlayer.forEach((player) => {
-      playerList.push({
-        name: player.id,
-        serialNum: player.data().serialNumber,
+  const getFirebasePlayer = useCallback(() => {
+    async function gettingFirebasePlayer() {
+      const playerList = [];
+      const queryPlayer = await getDocs(
+        query(players, orderBy("serialNumber"))
+      );
+      queryPlayer.forEach((player) => {
+        playerList.push({
+          name: player.id,
+          serialNum: player.data().serialNumber,
+        });
       });
-    });
-    setFirebasePlayerList(playerList);
-  }
+      dispatch(updatePlayerListFromDB(playerList));
+    }
+    gettingFirebasePlayer();
+  }, [dispatch]);
 
-  useEffect(() => getFirebasePlayer(), []);
+  useEffect(() => getFirebasePlayer(), [getFirebasePlayer]);
 
   const handlePlayerList = () => {
     dispatch(
@@ -157,7 +162,7 @@ function PlayerListInput(props) {
         <div className="form_title">比賽及選手資訊登錄</div>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Row className="mb-3">
-            <Form.Group as={Col} xs="6" controlId="Inning select">
+            <Form.Group as={Col} xs="6" md={5} controlId="Inning select">
               <Form.Label>比賽局數</Form.Label>
               <Form.Select
                 aria-label="Inning select"
@@ -176,20 +181,19 @@ function PlayerListInput(props) {
               </Form.Select>
             </Form.Group>
             <Row as={Col} xs={6}>
-              <Col xs={12} md={6} lg={{ span: 5, offset: 1 }} className="mb-3">
+              <Col xs={12} md={{ span: 5, offset: 1 }} className="mb-3">
                 <Button
                   variant="outline-primary"
-                  onClick={() => setFirebasePlayerListShow(true)}
+                  onClick={() => setPlayerListFromDBShow(true)}
                 >
                   已註冊球員名單
                 </Button>
-                <FirebasePlayerList
-                  firebasePlayerList={firebasePlayerList}
-                  firebasePlayerListShow={firebasePlayerListShow}
-                  setFirebasePlayerListShow={setFirebasePlayerListShow}
+                <PlayerListFromDB
+                  playerListFromDBShow={playerListFromDBShow}
+                  setPlayerListFromDBShow={setPlayerListFromDBShow}
                 />
               </Col>
-              <Col xs={12} md={6} lg={{ span: 5, offset: 1 }} className="mb-3">
+              <Col xs={12} md={{ span: 5, offset: 1 }} className="mb-3">
                 <Button
                   variant="outline-success"
                   onClick={() => setRegisterPlayerShow(true)}
@@ -198,12 +202,11 @@ function PlayerListInput(props) {
                 </Button>
                 <RegisterPlayer
                   getFirebasePlayer={getFirebasePlayer}
-                  firebasePlayerList={firebasePlayerList}
                   registerPlayerShow={registerPlayerShow}
                   setRegisterPlayerShow={setRegisterPlayerShow}
                 />
               </Col>
-              <Col xs={12} md={{ span: 6, offset: 3 }} className="mb-3">
+              <Col xs={12} md={{ span: 5, offset: 1 }} className="mb-3">
                 <Button
                   variant="outline-dark"
                   onClick={() => {
