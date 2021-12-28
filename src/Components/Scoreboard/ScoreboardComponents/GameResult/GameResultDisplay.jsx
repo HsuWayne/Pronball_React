@@ -1,10 +1,10 @@
-import { Modal, Button, Table, Nav, Tab } from "react-bootstrap";
 import React from "react";
+import { Modal, Button, Table, Nav, Tab } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-function GameResult(props) {
+function GameResultDisplay(props) {
   const gameData = useSelector((state) => state.gameData);
-  const { showGameResult, setShowGameResult } = props;
+  const { showGameResult, setShowGameResult, handleGameResultUpdate } = props;
   const totalInning = [];
   for (let i = 1; i <= gameData.gameInning; i++) {
     totalInning.push(<th key={"inning" + i}>{i}</th>);
@@ -281,7 +281,13 @@ function GameResult(props) {
         </Tab.Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={() => console.log("QQ")}>
+        <Button
+          variant="primary"
+          onClick={() => {
+            handleGameResultUpdate();
+            console.log("QQ");
+          }}
+        >
           結束並退出
         </Button>
       </Modal.Footer>
@@ -289,4 +295,4 @@ function GameResult(props) {
   );
 }
 
-export default GameResult;
+export default GameResultDisplay;

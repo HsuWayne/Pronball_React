@@ -5,7 +5,7 @@ import ScoreboardNav from "./ScoreboardComponents/ScoreboardNav";
 import ScoreboardGameInfo from "./ScoreboardComponents/ScoreboardGameInfo";
 import GamePlayArea from "./ScoreboardComponents/GamePlayArea";
 import TeamInfoArea from "./ScoreboardComponents/TeamInfoArea";
-import GameResult from "./ScoreboardComponents/GameResult";
+import GameResult from "./ScoreboardComponents/GameResult/GameResult";
 import { useDispatch } from "react-redux";
 import { setGameEnd } from "../../store/slice/gameDataSlice";
 import { useSelector } from "react-redux";
