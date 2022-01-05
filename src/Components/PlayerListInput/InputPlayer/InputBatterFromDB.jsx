@@ -51,7 +51,7 @@ const InputBatterFromDB = (props) => {
 
   const inputBattersNum = (
     <Row className="mb-3" key={team + "InputBattersNum"}>
-      <Form.Group as={Col} xs="6" controlId={team + "BattersNum"}>
+      <Form.Group as={Col} xs="5" controlId={team + "BattersNum"}>
         <Form.Label>
           {team === "home" ? "主隊打者人數" : "客隊打者人數"}
         </Form.Label>
@@ -70,8 +70,14 @@ const InputBatterFromDB = (props) => {
 
   const battersListLabel = (
     <Row key={team + "batterListLabel"}>
-      <Form.Label>
+      <Form.Label as={Col} xs="5">
         {team === "home" ? "選擇主隊打者" : "選擇客隊打者"}
+      </Form.Label>
+      <Form.Label as={Col} xs="2" md={{ span: 2, offset: 1 }}>
+        背號
+      </Form.Label>
+      <Form.Label as={Col} xs="5" md={{ span: 4 }}>
+        姓名
       </Form.Label>
     </Row>
   );
@@ -105,7 +111,7 @@ const InputBatterFromDB = (props) => {
           md={{ span: 2, offset: 1 }}
           controlId={team + "BatterSerialNum" + i}
         >
-          <Form.Label>背號</Form.Label>
+          <Form.Label></Form.Label>
           <Form.Control
             value={batterList[i - 1] ? batterList[i - 1].batterSerialNum : ""}
             type="number"
@@ -122,7 +128,7 @@ const InputBatterFromDB = (props) => {
           md={{ span: 4 }}
           controlId={team + "BatterName" + i}
         >
-          <Form.Label>姓名</Form.Label>
+          <Form.Label></Form.Label>
           <Form.Control
             value={batterList[i - 1] ? batterList[i - 1].batterName : ""}
             type="text"
