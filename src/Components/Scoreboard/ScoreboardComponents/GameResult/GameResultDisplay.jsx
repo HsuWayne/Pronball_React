@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Button, Table, Nav, Tab } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function GameResultDisplay(props) {
@@ -282,6 +283,8 @@ function GameResultDisplay(props) {
       </Modal.Body>
       <Modal.Footer>
         <Button
+          as={Link}
+          to="/"
           variant="primary"
           onClick={() => {
             handleGameResultUpdate();

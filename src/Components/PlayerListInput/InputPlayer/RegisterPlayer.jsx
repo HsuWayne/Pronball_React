@@ -73,6 +73,7 @@ function RegisterPlayer(props) {
         dpPit: 0,
         h: 0,
         hr: 0,
+        gamePlayed: 0,
       },
       batter: {
         single: 0,
@@ -88,6 +89,7 @@ function RegisterPlayer(props) {
         dp: 0,
         sf: 0,
         sh: 0,
+        gamePlayed: 0,
       },
     })
       .then(() => {

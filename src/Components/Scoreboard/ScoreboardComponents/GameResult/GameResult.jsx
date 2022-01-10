@@ -60,6 +60,7 @@ function GameResult(props) {
               dpPit: player.pitcher.dpPit + pitcher.dpPit,
               h: player.pitcher.h + pitcher.h,
               hr: player.pitcher.hr + pitcher.hr,
+              gamePlayed: player.pitcher.gamePlayed + 1,
             },
           };
         } else {
@@ -104,6 +105,7 @@ function GameResult(props) {
               dp: player.batter.dp + batter.dp,
               sf: player.batter.sf + batter.sf,
               sh: player.batter.sh + batter.sh,
+              gamePlayed: player.batter.gamePlayed + 1,
             },
           };
         } else {
@@ -142,8 +144,8 @@ function GameResult(props) {
       .then(() => updatePlayerData(playerListFromDB));
   }
 
-  const updatePlayerToFirebase = (player) => {
-    updateDoc(doc(players, player.name), {
+  const updatePlayerToFirebase = async (player) => {
+    await updateDoc(doc(players, player.name), {
       pitcher: {
         strike: player.pitcher.strike,
         ball: player.pitcher.ball,
@@ -157,6 +159,7 @@ function GameResult(props) {
         dpPit: player.pitcher.dpPit,
         h: player.pitcher.h,
         hr: player.pitcher.hr,
+        gamePlayed: player.pitcher.gamePlayed,
       },
       batter: {
         single: player.batter.single,
@@ -172,8 +175,9 @@ function GameResult(props) {
         dp: player.batter.dp,
         sf: player.batter.sf,
         sh: player.batter.sh,
+        gamePlayed: player.batter.gamePlayed,
       },
-    });
+    }).then(() => window.location.reload());
   };
 
   const registerPitcher = (player) => {
@@ -192,6 +196,7 @@ function GameResult(props) {
         dpPit: player.dpPit,
         h: player.h,
         hr: player.hr,
+        gamePlayed: 1,
       },
       batter: {
         single: 0,
@@ -207,6 +212,7 @@ function GameResult(props) {
         dp: 0,
         sf: 0,
         sh: 0,
+        gamePlayed: 0,
       },
     });
   };
@@ -227,6 +233,7 @@ function GameResult(props) {
         dpPit: 0,
         h: 0,
         hr: 0,
+        gamePlayed: 0,
       },
       batter: {
         single: player.single,
@@ -242,6 +249,7 @@ function GameResult(props) {
         dp: player.dp,
         sf: player.sf,
         sh: player.sh,
+        gamePlayed: 1,
       },
     });
   };
