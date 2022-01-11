@@ -1,13 +1,5 @@
-import {
-  Modal,
-  Button,
-  Table,
-  Container,
-  Row,
-  Col,
-  Form,
-} from "react-bootstrap";
 import React, { useState } from "react";
+import { Modal, Button, Table, Container, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import {
   changePitcher,
@@ -15,6 +7,8 @@ import {
 } from "../../../../../store/slice/gameDataSlice";
 import { useSelector } from "react-redux";
 import { defaultPitcher } from "../../../../PlayerListInput/Player";
+import ChangePitcher from "./ChangePitcher";
+import ChangePitcherFromDB from "./ChangePitcherFromDB";
 
 function PitcherInfo(props) {
   const { pitcherShow, setPitcherShow } = props;
@@ -140,45 +134,14 @@ function PitcherInfo(props) {
           onSubmit={handleSubmit}
         >
           <div className="playerForm_subtitle">更換投手</div>
-          <Row className="mb-3">
-            <Form.Group as={Col} xs="4" controlId={"changePitcherSerialNum"}>
-              <Form.Label>背號(0~99)</Form.Label>
-              <Form.Control
-                value={changePitching.serialNum}
-                onChange={(e) =>
-                  setChangePitching({
-                    ...changePitching,
-                    serialNum: e.target.value,
-                  })
-                }
-                type="number"
-                min="0"
-                max="99"
-                step="1"
-                required
-              />
-              <Form.Control.Feedback type="invalid">
-                請填寫 0 ~ 99 的正整數
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} xs="8" controlId={"changePitcherName"}>
-              <Form.Label>投手姓名</Form.Label>
-              <Form.Control
-                value={changePitching.name}
-                onChange={(e) =>
-                  setChangePitching({
-                    ...changePitching,
-                    name: e.target.value,
-                  })
-                }
-                type="text"
-                required
-              />
-              <Form.Control.Feedback type="invalid">
-                請填寫更換投手姓名
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Row>
+          {gameData.playerListFromDB.length === 0 ? (
+            <ChangePitcher
+              changePitching={changePitching}
+              setChangePitching={setChangePitching}
+            />
+          ) : (
+            <ChangePitcherFromDB setChangePitching={setChangePitching} />
+          )}
           <Modal.Footer>
             <Button variant="secondary" onClick={() => setPitcherShow(false)}>
               關閉

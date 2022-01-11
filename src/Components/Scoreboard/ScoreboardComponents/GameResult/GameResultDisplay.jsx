@@ -288,7 +288,6 @@ function GameResultDisplay(props) {
           variant="primary"
           onClick={() => {
             handleGameResultUpdate();
-            console.log("QQ");
           }}
         >
           結束並退出

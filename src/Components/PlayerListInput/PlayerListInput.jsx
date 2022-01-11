@@ -201,7 +201,6 @@ function PlayerListInput(props) {
                   註冊新球員
                 </Button>
                 <RegisterPlayer
-                  getFirebasePlayer={getFirebasePlayer}
                   registerPlayerShow={registerPlayerShow}
                   setRegisterPlayerShow={setRegisterPlayerShow}
                 />

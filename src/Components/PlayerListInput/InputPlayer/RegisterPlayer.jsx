@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Modal,
   Button,
@@ -10,8 +10,17 @@ import {
 } from "react-bootstrap";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { collection, doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { updatePlayerListFromDB } from "../../../store/slice/gameDataSlice";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCh6fWlLO_5BBg6KYIhOpQm-NYYxGThxT8",
@@ -28,12 +37,9 @@ const db = getFirestore(app);
 const players = collection(db, "Players");
 
 function RegisterPlayer(props) {
-  const {
-    getFirebasePlayer,
-    registerPlayerShow,
-    setRegisterPlayerShow,
-  } = props;
+  const { registerPlayerShow, setRegisterPlayerShow } = props;
   const gameData = useSelector((state) => state.gameData);
+  const dispatch = useDispatch();
   const [validated, setValidated] = useState(false);
   const [newPlayer, setNewPlayer] = useState({
     serialNum: "",
@@ -111,6 +117,23 @@ function RegisterPlayer(props) {
       registerPlayer(name, serialNum);
     }
   };
+
+  const getFirebasePlayer = useCallback(() => {
+    async function gettingFirebasePlayer() {
+      const playerList = [];
+      const queryPlayer = await getDocs(
+        query(players, orderBy("serialNumber"))
+      );
+      queryPlayer.forEach((player) => {
+        playerList.push({
+          name: player.id,
+          serialNum: player.data().serialNumber,
+        });
+      });
+      dispatch(updatePlayerListFromDB(playerList));
+    }
+    gettingFirebasePlayer();
+  }, [dispatch]);
 
   return (
     <Modal
