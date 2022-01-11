@@ -18,7 +18,7 @@ export default function App() {
       <WebNavbar />
       <Routes>
         <Route
-          path="/"
+          path="/Pronball_React/"
           element={
             !playerListSubmitted ? (
               <PlayerListInput
@@ -29,10 +29,10 @@ export default function App() {
             )
           }
         />
-        <Route path="pitcher" element={<PitcherDataDisplay />}>
+        <Route path="/Pronball_React/pitcher" element={<PitcherDataDisplay />}>
           <Route path=":pitcherId" element={<SinglePitcherData />} />
         </Route>
-        <Route path="batter" element={<BatterDataDisplay />}>
+        <Route path="/Pronball_React/batter" element={<BatterDataDisplay />}>
           <Route path=":batterId" element={<SingleBatterData />} />
         </Route>
         <Route

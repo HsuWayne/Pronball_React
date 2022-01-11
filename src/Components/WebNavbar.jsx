@@ -6,14 +6,17 @@ import "./WebNavbar.css";
 const WebNavbar = () => {
   const [dropDownActive, setDropDownActive] = useState(false);
   const checkDropDownActive = (e) => {
-    if (e.target.pathname === "/pitcher" || e.target.pathname === "/batter") {
+    if (
+      e.target.pathname === "/Pronball_React/pitcher" ||
+      e.target.pathname === "/Pronball_React/batter"
+    ) {
       setDropDownActive(true);
     } else setDropDownActive(false);
   };
   return (
     <Navbar collapseOnSelect expand="sm" bg="primary" variant="dark">
       <Container>
-        <LinkContainer to="/">
+        <LinkContainer to="/Pronball_React/">
           <Navbar.Brand>
             <div className="navbar-logo d-inline-block justify-content-end"></div>
             <span>乒乓棒球</span>
@@ -22,7 +25,7 @@ const WebNavbar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
-            <LinkContainer to="/">
+            <LinkContainer to="/Pronball_React/">
               <Nav.Link className="text-center" onClick={checkDropDownActive}>
                 計分板
               </Nav.Link>
@@ -34,10 +37,10 @@ const WebNavbar = () => {
               onClick={checkDropDownActive}
               active={dropDownActive}
             >
-              <LinkContainer to="/pitcher">
+              <LinkContainer to="/Pronball_React/pitcher">
                 <NavDropdown.Item>投手數據</NavDropdown.Item>
               </LinkContainer>
-              <LinkContainer to="/batter">
+              <LinkContainer to="/Pronball_React/batter">
                 <NavDropdown.Item>打者數據</NavDropdown.Item>
               </LinkContainer>
             </NavDropdown>
