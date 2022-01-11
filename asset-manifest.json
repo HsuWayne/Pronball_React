@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/PronBall_React/static/css/main.036e25d7.chunk.css",
+    "main.js": "/PronBall_React/static/js/main.2f9a7ffe.chunk.js",
+    "main.js.map": "/PronBall_React/static/js/main.2f9a7ffe.chunk.js.map",
+    "runtime-main.js": "/PronBall_React/static/js/runtime-main.16e5a374.js",
+    "runtime-main.js.map": "/PronBall_React/static/js/runtime-main.16e5a374.js.map",
+    "static/css/2.679831fc.chunk.css": "/PronBall_React/static/css/2.679831fc.chunk.css",
+    "static/js/2.4344ad74.chunk.js": "/PronBall_React/static/js/2.4344ad74.chunk.js",
+    "static/js/2.4344ad74.chunk.js.map": "/PronBall_React/static/js/2.4344ad74.chunk.js.map",
+    "index.html": "/PronBall_React/index.html",
+    "static/css/2.679831fc.chunk.css.map": "/PronBall_React/static/css/2.679831fc.chunk.css.map",
+    "static/css/main.036e25d7.chunk.css.map": "/PronBall_React/static/css/main.036e25d7.chunk.css.map",
+    "static/js/2.4344ad74.chunk.js.LICENSE.txt": "/PronBall_React/static/js/2.4344ad74.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.16e5a374.js",
+    "static/css/2.679831fc.chunk.css",
+    "static/js/2.4344ad74.chunk.js",
+    "static/css/main.036e25d7.chunk.css",
+    "static/js/main.2f9a7ffe.chunk.js"
+  ]
+}
