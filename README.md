@@ -8,6 +8,11 @@
 ### 專案介紹
 
 這個專案是由ReactJS的[Create React App](https://github.com/facebook/create-react-app)製作。\
+並使用Firebase作為資料庫儲存球員資料。\
 可至以下連結[乒乓棒球](https://hsuwayne.github.io/Pronball_React/) 查看專案成果。
+
+使用相關套件：
+
+`reduxjs/toolkit` `react-redux` `react-bootstrap` `react-fontawesome` `firebase` `react-router`
 
 
