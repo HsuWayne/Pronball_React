@@ -68,7 +68,9 @@ function BatterDataDisplay() {
                     <tr key={"batter" + index}>
                       <td>{batter.serialNum}</td>
                       <td>
-                        <Link to={`/batter/${batter.name}`}>{batter.name}</Link>
+                        <Link to={`/Pronball_React/batter/${batter.name}`}>
+                          {batter.name}
+                        </Link>
                       </td>
                       <td>
                         {Math.round(

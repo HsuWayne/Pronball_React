@@ -69,7 +69,7 @@ function PitcherDataDisplay() {
                     <tr key={"pitcher" + index}>
                       <td>{pitcher.serialNum}</td>
                       <td>
-                        <Link to={`/pitcher/${pitcher.name}`}>
+                        <Link to={`/Pronball_React/pitcher/${pitcher.name}`}>
                           {pitcher.name}
                         </Link>
                       </td>
