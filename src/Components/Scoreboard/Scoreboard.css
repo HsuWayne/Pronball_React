@@ -126,8 +126,8 @@
 }
 
 .scoreboard_bat_area {
-  height: 7vh;
-  line-height: 7vh;
+  height: 10vh;
+  line-height: 10vh;
 }
 
 .scoreboard_bat_area_strike {
@@ -139,8 +139,8 @@
 }
 
 .scoreboard_foul_area {
-  height: 8vh;
-  line-height: 8vh;
+  height: 10vh;
+  line-height: 10vh;
   background-color: #aaaaaa;
 }
 
@@ -155,27 +155,27 @@
 }
 
 .scoreboard_single_area {
-  height: 9vh;
-  line-height: 4.5vh;
+  height: 10vh;
+  line-height: 5vh;
   background-color: #ffc107;
 }
 
 .scoreboard_double_area {
-  height: 9vh;
-  line-height: 9vh;
+  height: 10vh;
+  line-height: 10vh;
   background-color: #fd7e14;
 }
 
 .scoreboard_triple_area {
-  height: 9vh;
-  line-height: 9vh;
+  height: 10vh;
+  line-height: 10vh;
 
   background-color: #6f42c1;
 }
 
 .scoreboard_homerun_area {
-  height: 9vh;
-  line-height: 9vh;
+  height: 10vh;
+  line-height: 10vh;
 
   background-color: #d63384;
 }
@@ -194,12 +194,12 @@
 
 .pitcher {
   left: 37.5vw;
-  top: calc(42vh + 62px);
+  top: calc(47vh + 62px);
 }
 
 .batter {
   left: 50vw;
-  top: calc(25vh + 62px);
+  top: calc(28vh + 62px);
 }
 
 @media (min-width: 576px) {
@@ -212,12 +212,12 @@
   }
 
   .pitcher {
-    top: calc(42vh + 76px);
+    top: calc(47vh + 76px);
     left: calc(50vw - 68px);
   }
 
   .batter {
-    top: calc(25vh + 80px);
+    top: calc(28vh + 80px);
   }
 }
 
@@ -272,7 +272,7 @@
 
 /* TeamInfoArea */
 .scoreboard_court {
-  height: 16vh;
+  height: 20vh;
   background-color: #666666;
   border: 1px solid #000000;
 }
@@ -335,7 +335,7 @@
 }
 
 .scoreboard_teamsInfo_batter {
-  height: 20vh;
+  height: 22vh;
   line-height: 5vh;
   border: 1px solid #000000;
   font-size: 0.8rem;

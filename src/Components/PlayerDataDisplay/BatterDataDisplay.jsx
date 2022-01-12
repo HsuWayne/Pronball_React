@@ -34,7 +34,6 @@ function BatterDataDisplay() {
           <>
             <Table striped bordered className="mt-3">
               <thead>
-                {/* // AVG OBP SLG OPS GO/AO HR% */}
                 <tr>
                   <th>背號</th>
                   <th>姓名</th>

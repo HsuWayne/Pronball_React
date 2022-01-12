@@ -51,7 +51,12 @@ const InputBatterFromDB = (props) => {
 
   const inputBattersNum = (
     <Row className="mb-3" key={team + "InputBattersNum"}>
-      <Form.Group as={Col} xs="5" controlId={team + "BattersNum"}>
+      <Form.Group
+        as={Col}
+        xs={{ span: 10, offset: 1 }}
+        md={{ span: 6, offset: 3 }}
+        controlId={team + "BattersNum"}
+      >
         <Form.Label>
           {team === "home" ? "主隊打者人數" : "客隊打者人數"}
         </Form.Label>
@@ -70,14 +75,12 @@ const InputBatterFromDB = (props) => {
 
   const battersListLabel = (
     <Row key={team + "batterListLabel"}>
-      <Form.Label as={Col} xs="5">
+      <Form.Label
+        as={Col}
+        xs={{ span: 10, offset: 1 }}
+        md={{ span: 6, offset: 3 }}
+      >
         {team === "home" ? "選擇主隊打者" : "選擇客隊打者"}
-      </Form.Label>
-      <Form.Label as={Col} xs="2" md={{ span: 2, offset: 1 }}>
-        背號
-      </Form.Label>
-      <Form.Label as={Col} xs="5" md={{ span: 4 }}>
-        姓名
       </Form.Label>
     </Row>
   );
@@ -86,11 +89,14 @@ const InputBatterFromDB = (props) => {
   for (let i = 1; i <= battersNum; i++) {
     battersList.push(
       <Row className="mb-3" key={i}>
-        <Form.Group as={Col} xs="5" controlId={team + "Batter" + i}>
+        <Form.Group
+          as={Col}
+          xs={{ span: 10, offset: 1 }}
+          md={{ span: 6, offset: 3 }}
+          controlId={team + "Batter" + i}
+        >
           <Form.Label>{i}棒</Form.Label>
           <Form.Select
-            as={Col}
-            xs="5"
             aria-label="Batter player select list"
             required
             onChange={handleBatterInput}
@@ -104,37 +110,6 @@ const InputBatterFromDB = (props) => {
               );
             })}
           </Form.Select>
-        </Form.Group>
-        <Form.Group
-          as={Col}
-          xs="2"
-          md={{ span: 2, offset: 1 }}
-          controlId={team + "BatterSerialNum" + i}
-        >
-          <Form.Label></Form.Label>
-          <Form.Control
-            value={batterList[i - 1] ? batterList[i - 1].batterSerialNum : ""}
-            type="number"
-            min="0"
-            max="99"
-            step="1"
-            plaintext
-            readOnly
-          />
-        </Form.Group>
-        <Form.Group
-          as={Col}
-          xs="5"
-          md={{ span: 4 }}
-          controlId={team + "BatterName" + i}
-        >
-          <Form.Label></Form.Label>
-          <Form.Control
-            value={batterList[i - 1] ? batterList[i - 1].batterName : ""}
-            type="text"
-            plaintext
-            readOnly
-          />
         </Form.Group>
       </Row>
     );

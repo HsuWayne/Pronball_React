@@ -146,8 +146,50 @@ function PlayerListInput(props) {
       <Container>
         <div className="form_title">比賽及選手資訊登錄</div>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-          <Row className="mb-3">
-            <Form.Group as={Col} xs="6" md={5} controlId="Inning select">
+          <Row>
+            <Col as={Row} xs={6} md={12}>
+              <Col xs={{ span: 11, offset: 1 }} md={3} className="mb-3">
+                <Button
+                  variant="outline-primary"
+                  onClick={() => setPlayerListFromDBShow(true)}
+                >
+                  已註冊球員名單
+                </Button>
+                <PlayerListFromDB
+                  playerListFromDBShow={playerListFromDBShow}
+                  setPlayerListFromDBShow={setPlayerListFromDBShow}
+                />
+              </Col>
+              <Col xs={{ span: 11, offset: 1 }} md={3} className="mb-3">
+                <Button
+                  variant="outline-success"
+                  onClick={() => setRegisterPlayerShow(true)}
+                >
+                  註冊新球員
+                </Button>
+                <RegisterPlayer
+                  registerPlayerShow={registerPlayerShow}
+                  setRegisterPlayerShow={setRegisterPlayerShow}
+                />
+              </Col>
+              <Col xs={{ span: 11, offset: 1 }} md={3} className="mb-3">
+                <Button
+                  variant="outline-dark"
+                  onClick={() => {
+                    handleTestData();
+                    props.setPlayerListSubmitted(true);
+                  }}
+                >
+                  帶入測試用資料
+                </Button>
+              </Col>
+            </Col>
+            <Form.Group
+              as={Col}
+              xs={{ span: 5, offset: 1, order: "first" }}
+              md={{ span: 6, offset: 3, order: "last" }}
+              controlId="Inning select"
+            >
               <Form.Label>比賽局數</Form.Label>
               <Form.Select
                 aria-label="Inning select"
@@ -165,43 +207,6 @@ function PlayerListInput(props) {
                 <option value="9">9</option>
               </Form.Select>
             </Form.Group>
-            <Row as={Col} xs={6}>
-              <Col xs={12} md={{ span: 5, offset: 1 }} className="mb-3">
-                <Button
-                  variant="outline-primary"
-                  onClick={() => setPlayerListFromDBShow(true)}
-                >
-                  已註冊球員名單
-                </Button>
-                <PlayerListFromDB
-                  playerListFromDBShow={playerListFromDBShow}
-                  setPlayerListFromDBShow={setPlayerListFromDBShow}
-                />
-              </Col>
-              <Col xs={12} md={{ span: 5, offset: 1 }} className="mb-3">
-                <Button
-                  variant="outline-success"
-                  onClick={() => setRegisterPlayerShow(true)}
-                >
-                  註冊新球員
-                </Button>
-                <RegisterPlayer
-                  registerPlayerShow={registerPlayerShow}
-                  setRegisterPlayerShow={setRegisterPlayerShow}
-                />
-              </Col>
-              <Col xs={12} md={{ span: 5, offset: 1 }} className="mb-3">
-                <Button
-                  variant="outline-dark"
-                  onClick={() => {
-                    handleTestData();
-                    props.setPlayerListSubmitted(true);
-                  }}
-                >
-                  帶入測試用資料
-                </Button>
-              </Col>
-            </Row>
           </Row>
           <hr />
           <InputPlayer

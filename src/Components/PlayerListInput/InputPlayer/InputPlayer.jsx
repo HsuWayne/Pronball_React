@@ -36,11 +36,7 @@ function InputPlayer(props) {
         </>
       ) : (
         <>
-          <InputPitcherFromDB
-            team={team}
-            setPitcherList={setPitcherList}
-            pitcherList={pitcherList}
-          />
+          <InputPitcherFromDB team={team} setPitcherList={setPitcherList} />
           <InputBatterFromDB
             team={team}
             setBatterList={setBatterList}
