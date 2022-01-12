@@ -147,8 +147,8 @@ function PlayerListInput(props) {
         <div className="form_title">比賽及選手資訊登錄</div>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Row>
-            <Col as={Row} xs={6} md={12}>
-              <Col xs={{ span: 11, offset: 1 }} md={3} className="mb-3">
+            <Col as={Row} xs={6} md={12} className="justify-content-md-center">
+              <Col xs={{ span: 11, offset: 1 }} md="auto" className="mb-3">
                 <Button
                   variant="outline-primary"
                   onClick={() => setPlayerListFromDBShow(true)}
@@ -160,7 +160,7 @@ function PlayerListInput(props) {
                   setPlayerListFromDBShow={setPlayerListFromDBShow}
                 />
               </Col>
-              <Col xs={{ span: 11, offset: 1 }} md={3} className="mb-3">
+              <Col xs={{ span: 11, offset: 1 }} md="auto" className="mb-3">
                 <Button
                   variant="outline-success"
                   onClick={() => setRegisterPlayerShow(true)}
@@ -172,7 +172,7 @@ function PlayerListInput(props) {
                   setRegisterPlayerShow={setRegisterPlayerShow}
                 />
               </Col>
-              <Col xs={{ span: 11, offset: 1 }} md={3} className="mb-3">
+              <Col xs={{ span: 11, offset: 1 }} md="auto" className="mb-3">
                 <Button
                   variant="outline-dark"
                   onClick={() => {

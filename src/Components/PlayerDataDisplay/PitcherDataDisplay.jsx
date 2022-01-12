@@ -32,114 +32,116 @@ function PitcherDataDisplay() {
         <h4 className="mt-5">投手數據</h4>
         {playerList ? (
           <>
-            <Table striped bordered className="mt-3">
-              <thead>
-                <tr>
-                  <th>背號</th>
-                  <th>姓名</th>
-                  <th>ERA</th>
-                  <th>K/BB</th>
-                  <th>WHIP</th>
-                  <th>OBA</th>
-                  <th>BAA</th>
-                  <th>K/9</th>
-                  <th>H/9</th>
-                  <th>BB/9</th>
-                  <th>Strike%</th>
-                </tr>
-              </thead>
-              <tbody>
-                {playerList.map((pitcher, index) => {
-                  return (
-                    <tr key={"pitcher" + index}>
-                      <td>{pitcher.serialNum}</td>
-                      <td>
-                        <Link to={`/Pronball_React/pitcher/${pitcher.name}`}>
-                          {pitcher.name}
-                        </Link>
-                      </td>
-                      <td>
-                        {Math.round(
-                          (pitcher.pitcher.er /
-                            (parseInt(pitcher.pitcher.o / 3) +
-                              (pitcher.pitcher.o % 3) / 10)) *
-                            9 *
-                            100
-                        ) / 100 || 0}
-                      </td>
-                      <td>
-                        {Math.round(
-                          (pitcher.pitcher.k / pitcher.pitcher.bbPit) * 100
-                        ) / 100 || 0}
-                      </td>
-                      <td>
-                        {Math.round(
-                          ((pitcher.pitcher.h + pitcher.pitcher.bbPit) /
-                            (parseInt(pitcher.pitcher.o / 3) +
-                              (pitcher.pitcher.o % 3) / 10)) *
-                            100
-                        ) / 100 || 0}
-                      </td>
-                      <td>
-                        {Math.round(
-                          ((pitcher.pitcher.h + pitcher.pitcher.bbPit) /
-                            (pitcher.pitcher.o +
-                              pitcher.pitcher.h +
-                              pitcher.pitcher.bbPit)) *
-                            100
-                        ) / 100 || 0}
-                      </td>
-                      <td>
-                        {Math.round(
-                          (pitcher.pitcher.h /
-                            (pitcher.pitcher.o +
-                              pitcher.pitcher.h +
-                              pitcher.pitcher.bbPit)) *
-                            100
-                        ) / 100 || 0}
-                      </td>
-                      <td>
-                        {Math.round(
-                          (pitcher.pitcher.k /
-                            (parseInt(pitcher.pitcher.o / 3) +
-                              (pitcher.pitcher.o % 3) / 10)) *
-                            9 *
-                            100
-                        ) / 100 || 0}
-                      </td>
-                      <td>
-                        {Math.round(
-                          (pitcher.pitcher.h /
-                            (parseInt(pitcher.pitcher.o / 3) +
-                              (pitcher.pitcher.o % 3) / 10)) *
-                            9 *
-                            100
-                        ) / 100 || 0}
-                      </td>
-                      <td>
-                        {Math.round(
-                          (pitcher.pitcher.bbPit /
-                            (parseInt(pitcher.pitcher.o / 3) +
-                              (pitcher.pitcher.o % 3) / 10)) *
-                            9 *
-                            100
-                        ) / 100 || 0}
-                      </td>
-                      <td>
-                        {pitcher.pitcher.strike
-                          ? Math.round(
-                              (pitcher.pitcher.strike /
-                                (pitcher.pitcher.strike +
-                                  pitcher.pitcher.ball)) *
-                                100
-                            ) + "%"
-                          : 0 + "%"}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
+            <div style={{ overflow: "auto" }}>
+              <Table striped bordered className="mt-3">
+                <thead>
+                  <tr>
+                    <th>背號</th>
+                    <th>姓名</th>
+                    <th>ERA</th>
+                    <th>K/BB</th>
+                    <th>WHIP</th>
+                    <th>OBA</th>
+                    <th>BAA</th>
+                    <th>K/9</th>
+                    <th>H/9</th>
+                    <th>BB/9</th>
+                    <th>Strike%</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {playerList.map((pitcher, index) => {
+                    return (
+                      <tr key={"pitcher" + index}>
+                        <td>{pitcher.serialNum}</td>
+                        <td>
+                          <Link to={`/Pronball_React/pitcher/${pitcher.name}`}>
+                            {pitcher.name}
+                          </Link>
+                        </td>
+                        <td>
+                          {Math.round(
+                            (pitcher.pitcher.er /
+                              (parseInt(pitcher.pitcher.o / 3) +
+                                (pitcher.pitcher.o % 3) / 10)) *
+                              9 *
+                              100
+                          ) / 100 || 0}
+                        </td>
+                        <td>
+                          {Math.round(
+                            (pitcher.pitcher.k / pitcher.pitcher.bbPit) * 100
+                          ) / 100 || 0}
+                        </td>
+                        <td>
+                          {Math.round(
+                            ((pitcher.pitcher.h + pitcher.pitcher.bbPit) /
+                              (parseInt(pitcher.pitcher.o / 3) +
+                                (pitcher.pitcher.o % 3) / 10)) *
+                              100
+                          ) / 100 || 0}
+                        </td>
+                        <td>
+                          {Math.round(
+                            ((pitcher.pitcher.h + pitcher.pitcher.bbPit) /
+                              (pitcher.pitcher.o +
+                                pitcher.pitcher.h +
+                                pitcher.pitcher.bbPit)) *
+                              100
+                          ) / 100 || 0}
+                        </td>
+                        <td>
+                          {Math.round(
+                            (pitcher.pitcher.h /
+                              (pitcher.pitcher.o +
+                                pitcher.pitcher.h +
+                                pitcher.pitcher.bbPit)) *
+                              100
+                          ) / 100 || 0}
+                        </td>
+                        <td>
+                          {Math.round(
+                            (pitcher.pitcher.k /
+                              (parseInt(pitcher.pitcher.o / 3) +
+                                (pitcher.pitcher.o % 3) / 10)) *
+                              9 *
+                              100
+                          ) / 100 || 0}
+                        </td>
+                        <td>
+                          {Math.round(
+                            (pitcher.pitcher.h /
+                              (parseInt(pitcher.pitcher.o / 3) +
+                                (pitcher.pitcher.o % 3) / 10)) *
+                              9 *
+                              100
+                          ) / 100 || 0}
+                        </td>
+                        <td>
+                          {Math.round(
+                            (pitcher.pitcher.bbPit /
+                              (parseInt(pitcher.pitcher.o / 3) +
+                                (pitcher.pitcher.o % 3) / 10)) *
+                              9 *
+                              100
+                          ) / 100 || 0}
+                        </td>
+                        <td>
+                          {pitcher.pitcher.strike
+                            ? Math.round(
+                                (pitcher.pitcher.strike /
+                                  (pitcher.pitcher.strike +
+                                    pitcher.pitcher.ball)) *
+                                  100
+                              ) + "%"
+                            : 0 + "%"}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </div>
             <Outlet />
           </>
         ) : (
