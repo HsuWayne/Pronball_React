@@ -1,9 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import {
-  collection,
   doc,
   setDoc,
   getDocs,
@@ -12,20 +9,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import GameResultDisplay from "./GameResultDisplay";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCh6fWlLO_5BBg6KYIhOpQm-NYYxGThxT8",
-  authDomain: "pronball-51cf0.firebaseapp.com",
-  projectId: "pronball-51cf0",
-  storageBucket: "pronball-51cf0.appspot.com",
-  messagingSenderId: "962660474419",
-  appId: "1:962660474419:web:9c454bcaf770cabca0cd46",
-  measurementId: "G-DRK81DGZ5G",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const players = collection(db, "Players");
+import playersFromDB from "../../../../firebase";
 
 function GameResult(props) {
   const { showGameResult, setShowGameResult } = props;
@@ -131,7 +115,7 @@ function GameResult(props) {
 
   async function handleGameResultUpdate() {
     const playerListFromDB = [];
-    await getDocs(query(players, orderBy("serialNumber")))
+    await getDocs(query(playersFromDB, orderBy("serialNumber")))
       .then((queryPlayer) => {
         queryPlayer.forEach((player) => {
           playerListFromDB.push({
@@ -145,7 +129,7 @@ function GameResult(props) {
   }
 
   const updatePlayerToFirebase = async (player) => {
-    await updateDoc(doc(players, player.name), {
+    await updateDoc(doc(playersFromDB, player.name), {
       pitcher: {
         strike: player.pitcher.strike,
         ball: player.pitcher.ball,
@@ -181,7 +165,7 @@ function GameResult(props) {
   };
 
   const registerPitcher = (player) => {
-    setDoc(doc(players, player.name), {
+    setDoc(doc(playersFromDB, player.name), {
       serialNumber: player.serialNum,
       pitcher: {
         strike: player.strike,
@@ -218,7 +202,7 @@ function GameResult(props) {
   };
 
   const registerBatter = (player) => {
-    setDoc(doc(players, player.name), {
+    setDoc(doc(playersFromDB, player.name), {
       serialNumber: player.serialNum,
       pitcher: {
         strike: 0,

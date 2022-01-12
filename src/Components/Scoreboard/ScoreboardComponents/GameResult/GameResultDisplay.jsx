@@ -284,7 +284,7 @@ function GameResultDisplay(props) {
       <Modal.Footer>
         <Button
           as={Link}
-          to="/"
+          to="/Pronball_React/"
           variant="primary"
           onClick={() => {
             handleGameResultUpdate();

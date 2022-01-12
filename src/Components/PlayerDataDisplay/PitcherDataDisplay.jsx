@@ -1,23 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { getDocs, orderBy, query } from "firebase/firestore";
 import { Container, Table } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCh6fWlLO_5BBg6KYIhOpQm-NYYxGThxT8",
-  authDomain: "pronball-51cf0.firebaseapp.com",
-  projectId: "pronball-51cf0",
-  storageBucket: "pronball-51cf0.appspot.com",
-  messagingSenderId: "962660474419",
-  appId: "1:962660474419:web:9c454bcaf770cabca0cd46",
-  measurementId: "G-DRK81DGZ5G",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const players = collection(db, "Players");
+import playersFromDB from "../../firebase";
 
 function PitcherDataDisplay() {
   const [playerList, setPlayerList] = useState();
@@ -25,7 +10,7 @@ function PitcherDataDisplay() {
   useEffect(() => {
     const playerListFromDB = [];
     async function gettingFirebasePlayer() {
-      await getDocs(query(players, orderBy("serialNumber"))).then(
+      await getDocs(query(playersFromDB, orderBy("serialNumber"))).then(
         (queryPlayer) => {
           queryPlayer.forEach((player) => {
             playerListFromDB.push({

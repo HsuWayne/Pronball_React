@@ -8,33 +8,11 @@ import {
   Form,
   Alert,
 } from "react-bootstrap";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import {
-  collection,
-  doc,
-  setDoc,
-  getDocs,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { doc, setDoc, getDocs, orderBy, query } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { updatePlayerListFromDB } from "../../../store/slice/gameDataSlice";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCh6fWlLO_5BBg6KYIhOpQm-NYYxGThxT8",
-  authDomain: "pronball-51cf0.firebaseapp.com",
-  projectId: "pronball-51cf0",
-  storageBucket: "pronball-51cf0.appspot.com",
-  messagingSenderId: "962660474419",
-  appId: "1:962660474419:web:9c454bcaf770cabca0cd46",
-  measurementId: "G-DRK81DGZ5G",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const players = collection(db, "Players");
+import playersFromDB from "../../../firebase";
 
 function RegisterPlayer(props) {
   const { registerPlayerShow, setRegisterPlayerShow } = props;
@@ -64,7 +42,7 @@ function RegisterPlayer(props) {
   };
 
   const registerPlayer = async (name, serialNum) => {
-    await setDoc(doc(players, name), {
+    await setDoc(doc(playersFromDB, name), {
       serialNumber: serialNum,
       pitcher: {
         strike: 0,
@@ -122,7 +100,7 @@ function RegisterPlayer(props) {
     async function gettingFirebasePlayer() {
       const playerList = [];
       const queryPlayer = await getDocs(
-        query(players, orderBy("serialNumber"))
+        query(playersFromDB, orderBy("serialNumber"))
       );
       queryPlayer.forEach((player) => {
         playerList.push({

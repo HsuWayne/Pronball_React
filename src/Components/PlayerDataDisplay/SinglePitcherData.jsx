@@ -1,36 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { Table } from "react-bootstrap";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCh6fWlLO_5BBg6KYIhOpQm-NYYxGThxT8",
-  authDomain: "pronball-51cf0.firebaseapp.com",
-  projectId: "pronball-51cf0",
-  storageBucket: "pronball-51cf0.appspot.com",
-  messagingSenderId: "962660474419",
-  appId: "1:962660474419:web:9c454bcaf770cabca0cd46",
-  measurementId: "G-DRK81DGZ5G",
-};
+import { db } from "../../firebase";
 
 function SinglePitcherData() {
   const [singlePitcher, setSinglePitcher] = useState();
   let params = useParams();
   useEffect(() => {
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
     const docRef = doc(db, "Players", params.pitcherId);
     const pitcher = [];
     async function gettingPitcher() {
-      await getDoc(docRef).then((player) => {
-        pitcher.push({
-          name: player.id,
-          serialNum: player.data().serialNumber,
-          pitcher: player.data().pitcher,
-        });
-      });
+      await getDoc(docRef)
+        .then((player) => {
+          pitcher.push({
+            name: player.id,
+            serialNum: player.data().serialNumber,
+            pitcher: player.data().pitcher,
+          });
+        })
+        .catch(() =>
+          pitcher.push({
+            name: "查無此球員",
+            serialNum: "",
+            pitcher: {},
+          })
+        );
       setSinglePitcher(pitcher);
     }
     gettingPitcher();
@@ -62,7 +57,7 @@ function SinglePitcherData() {
               <td>{singlePitcher[0].pitcher.gamePlayed}</td>
               <td>
                 {parseInt(singlePitcher[0].pitcher.o / 3) +
-                  (singlePitcher[0].pitcher.o % 3) / 10}
+                  (singlePitcher[0].pitcher.o % 3) / 10 || ""}
               </td>
               <td>{singlePitcher[0].pitcher.h}</td>
               <td>{singlePitcher[0].pitcher.hr}</td>
@@ -71,13 +66,15 @@ function SinglePitcherData() {
               <td>{singlePitcher[0].pitcher.k}</td>
               <td>{singlePitcher[0].pitcher.bbPit}</td>
               <td>
-                {singlePitcher[0].pitcher.strike +
-                  singlePitcher[0].pitcher.ball +
-                  "(" +
-                  singlePitcher[0].pitcher.strike +
-                  ":" +
-                  singlePitcher[0].pitcher.ball +
-                  ")"}
+                {singlePitcher[0].pitcher.strike
+                  ? singlePitcher[0].pitcher.strike +
+                    singlePitcher[0].pitcher.ball +
+                    "(" +
+                    singlePitcher[0].pitcher.strike +
+                    ":" +
+                    singlePitcher[0].pitcher.ball +
+                    ")"
+                  : ""}
               </td>
             </tr>
           </tbody>
