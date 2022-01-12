@@ -15,11 +15,6 @@ export const defaultPitcher = {
   hr: 0,
 };
 
-// 投球局數
-// parseInt(o / 3) + (o % 3) / 10;
-// 總投球數
-// strike + ball;
-
 export const defaultBatter = {
   serialNum: "",
   name: "",
@@ -38,10 +33,3 @@ export const defaultBatter = {
   sf: 0,
   sh: 0,
 };
-
-// 總安打數
-// single + double + triple + homerun;
-// 打數
-// h() + so + go + ao;
-// 打席
-// ab() + bb;
